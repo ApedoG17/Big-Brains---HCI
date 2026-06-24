@@ -1,0 +1,45 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs
+*.log
+logs/
+
+# Dependency folders
+node_modules/
+vendor/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build outputs
+dist/
+build/
+out/
+target/
+coverage/
+
+# Databases and local data
+*.sqlite
+*.sqlite3
+*.db
+
+# Mobile/framework generated files
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
