@@ -32,7 +32,7 @@
 | # | Name | Student ID | GitHub Username | Email | Main Role | Backup Role |
 |---|------|------------|-----------------|-------|-----------|-------------|
 | 1 | Shanell Sarkodie | 22371334 | sarkodieshannel | ssarkodie@st.ug.edu.gh | Product/Client Manager | QA Support |
-| 2 | Kelly Kristine Donkor | 22407052 | Kristine368 | kkdonkor003@st.ug.edu.gh | Architecture & Context Lead | Documentation Support |
+| 2 | Kelly Kristine Donkor | 22407052 | KellyKristine368 | kkdonkor003@st.ug.edu.gh | Architecture & Context Lead | Documentation Support |
 | 3 | Adwoa Nyameye Ani Asamoah | 22412447 | Nyameye | anaasamoah001@st.ug.edu.gh | Implementer | Backend Support |
 | 4 | Joseph Kwaku Wiafe | 22374055 | jkwiafe | jkwiafe002@st.ug.edu.gh | Implementer | UI/UX Support |
 | 5 | Essuman Patrick | 22407048 | deberryy | pessuman020@st.ug.edu.gh | Implementer | DevOps Support |
