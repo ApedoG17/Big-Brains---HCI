@@ -16,6 +16,11 @@ import Architects from "./pages/Architects";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+import ClientDashboard from "./pages/dashboards/ClientDashboard";
+import ArchitectDashboard from "./pages/dashboards/ArchitectDashboard";
+import AdminDashboard from "./pages/dashboards/AdminDashboard";
+
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 function App(){
 
@@ -39,6 +44,33 @@ return(
 <Route path="/login" element={<Login/>}/>
 
 <Route path="/register" element={<Register/>}/>
+
+<Route
+  path="/client-dashboard"
+  element={
+    <ProtectedRoute>
+      <ClientDashboard />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/architect-dashboard"
+  element={
+    <ProtectedRoute>
+      <ArchitectDashboard />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/admin-dashboard"
+  element={
+    <ProtectedRoute>
+      <AdminDashboard />
+    </ProtectedRoute>
+  }
+/>
 
 
 </Routes>

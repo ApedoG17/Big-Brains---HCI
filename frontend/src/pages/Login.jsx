@@ -1,16 +1,40 @@
+import { useNavigate } from "react-router-dom";
+
+
 function Login(){
 
-return(
+  const navigate = useNavigate();
 
-<div>
 
-<h1>
-Login
-</h1>
+  const handleLogin = () => {
 
-</div>
+    // temporary authentication token
+    localStorage.setItem("token", "user-token");
 
-)
+
+    // redirect after login
+    navigate("/client-dashboard");
+
+  };
+
+
+  return(
+
+    <div>
+
+      <h1>
+        Login
+      </h1>
+
+
+      <button onClick={handleLogin}>
+        Login
+      </button>
+
+
+    </div>
+
+  );
 
 }
 
