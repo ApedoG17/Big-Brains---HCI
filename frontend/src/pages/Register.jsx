@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../api/authService';
 import authHeroImage from '../assets/ArchiVerse.svg';
-import './AuthForms.css';
+import '../components/AuthForms.css';
 
 const Register = () => {
   const navigate = useNavigate();
