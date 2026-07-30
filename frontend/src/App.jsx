@@ -16,64 +16,124 @@ import Architects from "./pages/Architects";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+
+// Consultation pages
+import ConsultationBooking from "./pages/ConsultationBooking";
+import MyConsultations from "./pages/MyConsultations";
+import ConsultationDetails from "./pages/ConsultationDetails";
+
+
 import ClientDashboard from "./pages/dashboards/ClientDashboard";
 import ArchitectDashboard from "./pages/dashboards/ArchitectDashboard";
 import AdminDashboard from "./pages/dashboards/AdminDashboard";
 
+
 import ProtectedRoute from "./auth/ProtectedRoute";
+
+
 
 function App(){
 
+
 return(
 
+
 <BrowserRouter>
+
 
 <Navbar/>
 
 
+
 <Routes>
+
 
 <Route path="/" element={<Home/>}/>
 
+
 <Route path="/about" element={<About/>}/>
+
 
 <Route path="/services" element={<Services/>}/>
 
+
 <Route path="/architects" element={<Architects/>}/>
+
 
 <Route path="/login" element={<Login/>}/>
 
+
 <Route path="/register" element={<Register/>}/>
 
-<Route
-  path="/client-dashboard"
-  element={
-    <ProtectedRoute>
-      <ClientDashboard />
-    </ProtectedRoute>
-  }
-/>
+
+
+
+{/* Consultation Module */}
+
 
 <Route
-  path="/architect-dashboard"
-  element={
-    <ProtectedRoute>
-      <ArchitectDashboard />
-    </ProtectedRoute>
-  }
+path="/consultation/book"
+element={<ConsultationBooking/>}
 />
 
+
+
 <Route
-  path="/admin-dashboard"
-  element={
-    <ProtectedRoute>
-      <AdminDashboard />
-    </ProtectedRoute>
-  }
+path="/my-consultations"
+element={<MyConsultations/>}
 />
+
+
+
+<Route
+path="/consultations/:id"
+element={<ConsultationDetails/>}
+/>
+
+
+
+
+
+<Route
+path="/client-dashboard"
+element={
+<ProtectedRoute>
+<ClientDashboard/>
+</ProtectedRoute>
+}
+/>
+
+
+
+
+
+<Route
+path="/architect-dashboard"
+element={
+<ProtectedRoute>
+<ArchitectDashboard/>
+</ProtectedRoute>
+}
+/>
+
+
+
+
+
+<Route
+path="/admin-dashboard"
+element={
+<ProtectedRoute>
+<AdminDashboard/>
+</ProtectedRoute>
+}
+/>
+
+
 
 
 </Routes>
+
 
 
 <Footer/>
@@ -81,9 +141,12 @@ return(
 
 </BrowserRouter>
 
+
 )
 
+
 }
+
 
 
 export default App;

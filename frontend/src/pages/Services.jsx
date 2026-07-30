@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useReveal } from "./useReveal";
 
 const SERVICES = [
@@ -107,3 +108,23 @@ export default function Services() {
     </div>
   );
 }
+<div style={{
+  marginTop:"50px",
+  textAlign:"center"
+}}>
+
+<Link
+to="/consultation/book"
+style={{
+background:"#f97316",
+color:"white",
+padding:"15px 30px",
+borderRadius:"30px",
+textDecoration:"none",
+fontWeight:"800"
+}}
+>
+Book Consultation →
+</Link>
+
+</div>
