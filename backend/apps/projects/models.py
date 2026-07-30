@@ -39,7 +39,7 @@ class Project(models.Model):
         limit_choices_to={"role": "architect"},
     )
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)            
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
