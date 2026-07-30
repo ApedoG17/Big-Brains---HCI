@@ -59,7 +59,7 @@ function ConsultationBooking() {
 
 
       setMessage(
-        "Your consultation request has been submitted successfully."
+        "Your consultation request has been successfully submitted."
       );
 
 
