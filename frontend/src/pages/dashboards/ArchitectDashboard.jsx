@@ -112,6 +112,40 @@ Uploaded Designs
 
 </div>
 
+<div 
+  className="card"
+  onClick={() => navigate("/inbox")}
+  style={{cursor:"pointer"}}
+>
+
+<h3>
+💬 Messages
+</h3>
+
+<p>
+8
+</p>
+
+</div>
+
+
+
+<div 
+  className="card"
+  onClick={() => navigate("/notifications")}
+  style={{cursor:"pointer"}}
+>
+
+<h3>
+🔔 Notifications
+</h3>
+
+<p>
+4
+</p>
+
+</div>
+
 
 </div>
 

@@ -90,6 +90,29 @@ path="/consultations/:id"
 element={<ConsultationDetails/>}
 />
 
+<Route path="/inbox" element={<Inbox />} />
+
+<Route path="/conversation/:id" element={<Conversation />} />
+
+<Route path="/notifications" element={<Notifications />} />
+
+<Route 
+  path="/inbox" 
+  element={<Inbox />} 
+/>
+
+
+<Route 
+  path="/conversation/:id" 
+  element={<Conversation />} 
+/>
+
+
+<Route 
+  path="/notifications" 
+  element={<Notifications />} 
+/>
+
 
 
 

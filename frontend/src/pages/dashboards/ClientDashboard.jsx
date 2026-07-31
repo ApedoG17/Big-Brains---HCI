@@ -21,7 +21,9 @@ return (
 
 <h1>ArchiVerse</h1>
 
-<button onClick={handleLogout}>
+<button 
+className="logout-btn"
+onClick={handleLogout}>
 Logout
 </button>
 
@@ -59,9 +61,36 @@ Manage your architectural projects and consultations.
 </div>
 
 
-<div className="card">
-<h3>Messages</h3>
-<p>6</p>
+<div 
+  className="card"
+  onClick={() => navigate("/inbox")}
+  style={{cursor:"pointer"}}
+>
+
+<h3>
+💬 Messages
+</h3>
+
+<p>
+6
+</p>
+
+</div>
+
+<div 
+  className="card"
+  onClick={() => navigate("/notifications")}
+  style={{cursor:"pointer"}}
+>
+
+<h3>
+🔔 Notifications
+</h3>
+
+<p>
+3
+</p>
+
 </div>
 
 
@@ -71,7 +100,11 @@ Manage your architectural projects and consultations.
 <h2>Recent Projects</h2>
 
 
-<div className="project">
+<div className="section-card">
+
+
+<div className="item">
+
 
 <h3>Modern Villa Design</h3>
 
@@ -82,6 +115,7 @@ Status: Design Phase
 <p>
 Architect: Assigned Architect
 </p>
+</div>
 
 </div>
 
