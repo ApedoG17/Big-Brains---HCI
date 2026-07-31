@@ -1,119 +1,118 @@
-.navbar{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:20px 8%;
-
-background:#111827;
-
+.haven-navbar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 12px 24px;
 }
 
-
-.logo{
-
-color:white;
-
-}
-
-
-.nav-links{
-
-display:flex;
-
-gap:25px;
-
-}
-
-
-.nav-links a{
-
-color:white;
-
-text-decoration:none;
-
-font-size:16px;
-
-}
-
-
-.nav-links a:hover{
-
-color:#60a5fa;
-
-}
-
-
-
-/* Mobile */
-
-@media(max-width:768px){
-
-
-.navbar{
-
-flex-direction:column;
-
-gap:20px;
-
-}
-
-
-.nav-links{
-
-flex-direction:column;
-
-align-items:center;
-
-gap:15px;
-
-}
-
-.notification-wrapper {
+.haven-navbar-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 99px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
-
-.notification-btn {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
+.haven-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
 }
 
-
-.notification-btn:hover {
-  color: #60a5fa;
+/* Controlled compact logo sizing to prevent the navbar from getting fat */
+.haven-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
-
-.notification-menu {
-  position: absolute;
-  right: 0;
-  top: 35px;
-  width: 280px;
-  background: white;
-  color: black;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+.haven-logo-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
 }
 
-.notification-item {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  color: black;
+.haven-nav-pills {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 99px;
 }
 
-
-.notification-item:hover {
-  background: #f3f4f6;
+.haven-nav-link {
+  padding: 6px 16px;
+  border-radius: 99px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  transition: all 0.25s ease;
 }
 
+.haven-nav-link:hover {
+  color: #0f172a;
+}
 
+.haven-nav-link.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Changed to match the vibrant orange from your logo */
+.haven-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: #f97316; 
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 99px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+}
+
+/* Container badge to make white elements in the logo pop */
+.logo-badge {
+  background: #0f172a; /* Sleek dark charcoal background */
+  padding: 6px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haven-logo-img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.haven-btn-primary:hover {
+  transform: translateY(-2px);
+  background: #ea580c;
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.45);
+}
+
+.arrow-icon {
+  font-weight: 800;
+  font-size: 0.95rem;
 }

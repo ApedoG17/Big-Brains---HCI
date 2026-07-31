@@ -1,57 +1,124 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../assets/Slice 1 1.svg";
 import "./Navbar.css";
 import NotificationDropdown from "./NotificationDropdown";
 
+export default function Navbar() {
 
-function Navbar() {
+  const location = useLocation();
+
+
+  const links = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Architects", path: "/architects" },
+    { name: "Consultation", path: "/consultation/book" },
+    { name: "My Consultations", path: "/my-consultations" },
+  ];
+
 
   return (
 
-    <nav className="navbar">
+    <header className="haven-navbar-wrapper">
 
-      <h2 className="logo">
-        ArchiVerse
-      </h2>
+      <div className="haven-navbar-container">
 
 
-      <div className="nav-links">
+        {/* Brand Logo Asset */}
 
-        <Link to="/">
-          Home
-        </Link>
+        <Link to="/" className="haven-brand">
 
-        <Link to="/about">
-          About
-        </Link>
+          <div className="logo-badge">
 
-        <Link to="/services">
-          Services
-        </Link>
+            <img 
+              src={logo} 
+              alt="ArchiVerse Logo" 
+              className="haven-logo-img" 
+            />
 
-        <Link to="/architects">
-          Architects
-        </Link>
+          </div>
 
-        <Link to="/login">
-          Login
-        </Link>
 
-        <Link to="/register">
-          Register
+          <span className="haven-logo-text">
+            ArchiVerse
+          </span>
+
+
         </Link>
 
 
-        <NotificationDropdown />
+
+
+        {/* Center Nav Pills */}
+
+        <nav className="haven-nav-pills">
+
+
+          {links.map((link) => {
+
+
+            const isActive = location.pathname === link.path;
+
+
+            return (
+
+              <Link
+
+                key={link.path}
+
+                to={link.path}
+
+                className={`haven-nav-link ${isActive ? "active" : ""}`}
+
+              >
+
+                {link.name}
+
+              </Link>
+
+            );
+
+
+          })}
+
+
+        </nav>
+
+
+
+
+
+        {/* Action Button */}
+
+        <div className="haven-nav-actions">
+
+
+          <Link 
+            to="/register" 
+            className="haven-btn-primary"
+          >
+
+            Get Started 
+            <span className="arrow-icon">
+              ↗
+            </span>
+
+
+          </Link>
+
+
+        </div>
+
 
 
       </div>
 
 
-    </nav>
+    </header>
+
 
   );
 
 }
-
-
-export default Navbar;
