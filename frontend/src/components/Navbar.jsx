@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import NotificationDropdown from "./NotificationDropdown";
 
 
 function Navbar() {
 
   return (
+
     <nav className="navbar">
 
       <h2 className="logo">
@@ -38,10 +40,15 @@ function Navbar() {
           Register
         </Link>
 
+
+        <NotificationDropdown />
+
+
       </div>
 
 
     </nav>
+
   );
 
 }

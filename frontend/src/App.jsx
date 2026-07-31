@@ -16,6 +16,10 @@ import Architects from "./pages/Architects";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+import Inbox from "./pages/Inbox";
+import Conversation from "./pages/Conversation";
+import Notifications from "./pages/Notifications";
+
 import ClientDashboard from "./pages/dashboards/ClientDashboard";
 import ArchitectDashboard from "./pages/dashboards/ArchitectDashboard";
 import AdminDashboard from "./pages/dashboards/AdminDashboard";
@@ -70,6 +74,29 @@ return(
       <AdminDashboard />
     </ProtectedRoute>
   }
+/>
+
+<Route path="/inbox" element={<Inbox />} />
+
+<Route path="/conversation/:id" element={<Conversation />} />
+
+<Route path="/notifications" element={<Notifications />} />
+
+<Route 
+  path="/inbox" 
+  element={<Inbox />} 
+/>
+
+
+<Route 
+  path="/conversation/:id" 
+  element={<Conversation />} 
+/>
+
+
+<Route 
+  path="/notifications" 
+  element={<Notifications />} 
 />
 
 
