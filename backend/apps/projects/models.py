@@ -31,6 +31,7 @@ class Project(models.Model):
         default=Status.DRAFT,
         db_index=True,
     )
+    is_archived = models.BooleanField(default=False, db_index=True)
     start_date = models.DateField(null=True, blank=True)
     expected_completion_date = models.DateField(null=True, blank=True)
 
@@ -49,8 +50,7 @@ class Project(models.Model):
         db_index=True,
     )
 
-    is_archived = models.BooleanField(default=False, db_index=True)
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -58,7 +58,6 @@ class Project(models.Model):
         indexes = [
             models.Index(fields=["client", "status"]),
             models.Index(fields=["architect", "status"]),
-            models.Index(fields=["status", "is_archived"]),
         ]
 
     def __str__(self):

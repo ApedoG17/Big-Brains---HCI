@@ -1,0 +1,14 @@
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+
+from .views import ContactMessageViewSet
+
+router = DefaultRouter()
+router.register("", ContactMessageViewSet, basename="contact")
+
+urlpatterns = [
+    path("", include(router.urls)),
+]
+
+# In backend/config/urls.py, include this with:
+#   path("api/contact/", include("apps.contacts.urls")),

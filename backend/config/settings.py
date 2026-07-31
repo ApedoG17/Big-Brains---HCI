@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'apps.reports',
     'apps.notifications',
 ]
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
