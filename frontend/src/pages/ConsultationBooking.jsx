@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { consultationService } from "../api/consultationService";
 import "./ConsultationBooking.css";
 
-
 function ConsultationBooking() {
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     architect: "",
@@ -13,25 +15,19 @@ function ConsultationBooking() {
     description: ""
   });
 
-
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
 
-
   const handleChange = (e) => {
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-
   };
 
 
-
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
 
@@ -41,19 +37,16 @@ function ConsultationBooking() {
       !formData.time ||
       !formData.description
     ) {
-
       setMessage("Please complete all required fields.");
-
       return;
-
     }
-
 
 
     try {
 
       setLoading(true);
       setMessage("");
+
 
       await consultationService.createConsultation(formData);
 
@@ -64,48 +57,49 @@ function ConsultationBooking() {
 
 
       setFormData({
-
-        architect:"",
-        type:"Online Meeting",
-        date:"",
-        time:"",
-        description:""
-
+        architect: "",
+        type: "Online Meeting",
+        date: "",
+        time: "",
+        description: ""
       });
 
 
+      setTimeout(() => {
+        navigate("/my-consultations");
+      }, 1000);
 
-    } catch(error){
 
-      console.log(error);
+    } catch (error) {
+
+      console.error(
+        "Failed to submit consultation:",
+        error
+      );
+
 
       setMessage(
         "Unable to submit consultation request. Please try again."
       );
 
 
-    }
-    finally{
+    } finally {
 
       setLoading(false);
 
     }
 
-
   };
-
 
 
   return (
 
     <div className="booking-page">
 
-
       <div className="booking-card">
 
 
         <div className="booking-title">
-
 
           <span>
             ARCHIVERSE CONSULTATION
@@ -121,9 +115,7 @@ function ConsultationBooking() {
             Meet experienced architects and bring your ideas to life.
           </p>
 
-
         </div>
-
 
 
 
@@ -145,6 +137,7 @@ function ConsultationBooking() {
               Choose architect
             </option>
 
+
             <option value="Architect John">
               Architect John
             </option>
@@ -160,7 +153,6 @@ function ConsultationBooking() {
 
 
 
-
           <label>
             Consultation Type
           </label>
@@ -172,18 +164,17 @@ function ConsultationBooking() {
             onChange={handleChange}
           >
 
-            <option>
+            <option value="Online Meeting">
               Online Meeting
             </option>
 
 
-            <option>
+            <option value="Physical Meeting">
               Physical Meeting
             </option>
 
 
           </select>
-
 
 
 
@@ -199,19 +190,13 @@ function ConsultationBooking() {
 
 
               <input
-
                 type="date"
-
                 name="date"
-
                 value={formData.date}
-
                 onChange={handleChange}
-
               />
 
             </div>
-
 
 
 
@@ -223,23 +208,16 @@ function ConsultationBooking() {
 
 
               <input
-
                 type="time"
-
                 name="time"
-
                 value={formData.time}
-
                 onChange={handleChange}
-
               />
 
             </div>
 
 
-
           </div>
-
 
 
 
@@ -250,24 +228,18 @@ function ConsultationBooking() {
 
 
           <textarea
-
             name="description"
-
             placeholder="Describe your project..."
-
             value={formData.description}
-
             onChange={handleChange}
-
           />
-
 
 
 
 
           <button type="submit">
 
-            {loading 
+            {loading
               ? "Submitting..."
               : "Book Consultation →"
             }
@@ -277,18 +249,13 @@ function ConsultationBooking() {
 
 
 
+          {message && (
 
-          {
-            message && (
+            <p className="booking-message">
+              {message}
+            </p>
 
-              <p className="booking-message">
-                {message}
-              </p>
-
-            )
-          }
-
-
+          )}
 
 
         </form>

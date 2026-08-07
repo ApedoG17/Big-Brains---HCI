@@ -1,83 +1,50 @@
 import axiosClient from "./axiosClient";
 
-
 export const consultationService = {
-
-
-
-createConsultation: async (consultationData)=>{
-
-
+// Create a new consultation
+createConsultation: async (consultationData) => {
 const response = await axiosClient.post(
-
 "/consultations/",
-
 consultationData
-
 );
 
-
+```
 return response.data;
-
+```
 
 },
 
+// Get the current user's consultations
+getConsultations: async () => {
+const response = await axiosClient.get("/consultations/");
 
-
-
-getConsultations: async ()=>{
-
-
-const response = await axiosClient.get(
-
-"/consultations/"
-
-);
-
-
+```
 return response.data;
-
+```
 
 },
 
-
-
-
-
-getConsultationDetails: async(id)=>{
-
-
+// Get details of one consultation
+getConsultationDetails: async (id) => {
 const response = await axiosClient.get(
-
 `/consultations/${id}/`
-
 );
 
-
+```
 return response.data;
-
+```
 
 },
 
-
-
-
-
-cancelConsultation: async(id)=>{
-
-
+// Cancel a consultation
+cancelConsultation: async (id) => {
 const response = await axiosClient.patch(
-
 `/consultations/${id}/cancel/`
-
 );
 
-
+```
 return response.data;
+```
 
-
-}
-
-
-
+},
 };

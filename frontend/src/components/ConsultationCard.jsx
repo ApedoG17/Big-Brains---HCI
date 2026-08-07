@@ -2,25 +2,28 @@ import { Link } from "react-router-dom";
 import StatusBadge from "./StatusBadge";
 import "./ConsultationCard.css";
 
-
 function ConsultationCard({ consultation }) {
-
 
   return (
 
-    <div className="consultation-card">
-
+    <article className="consultation-card">
 
       <div className="consultation-card-header">
 
+        <div>
 
-        <h3>
-          Architect Consultation
-        </h3>
+          <span className="consultation-label">
+            ARCHIVERSE CONSULTATION
+          </span>
+
+          <h3>
+            {consultation.architect || "Architect Consultation"}
+          </h3>
+
+        </div>
 
 
-        <StatusBadge status={consultation.status}/>
-
+        <StatusBadge status={consultation.status} />
 
       </div>
 
@@ -29,24 +32,66 @@ function ConsultationCard({ consultation }) {
       <div className="consultation-info">
 
 
-        <p>
-          📅 {consultation.date}
-        </p>
+        <div className="consultation-info-item">
+
+          <span className="info-icon">📅</span>
+
+          <div>
+            <small>Date</small>
+            <p>
+              {consultation.date || "Not specified"}
+            </p>
+          </div>
+
+        </div>
 
 
-        <p>
-          ⏰ {consultation.time}
-        </p>
 
 
-        <p>
-          🏛️ {consultation.architect}
-        </p>
+        <div className="consultation-info-item">
+
+          <span className="info-icon">⏰</span>
+
+          <div>
+            <small>Time</small>
+            <p>
+              {consultation.time || "Not specified"}
+            </p>
+          </div>
+
+        </div>
 
 
-        <p>
-          💻 {consultation.type}
-        </p>
+
+
+        <div className="consultation-info-item">
+
+          <span className="info-icon">🏛️</span>
+
+          <div>
+            <small>Architect</small>
+            <p>
+              {consultation.architect || "Not specified"}
+            </p>
+          </div>
+
+        </div>
+
+
+
+
+        <div className="consultation-info-item">
+
+          <span className="info-icon">💻</span>
+
+          <div>
+            <small>Meeting Type</small>
+            <p>
+              {consultation.type || "Not specified"}
+            </p>
+          </div>
+
+        </div>
 
 
       </div>
@@ -54,22 +99,21 @@ function ConsultationCard({ consultation }) {
 
 
 
-      <Link 
+      <Link
         to={`/consultations/${consultation.id}`}
         className="view-btn"
       >
 
-        View Details →
+        View Details
+        <span>→</span>
 
       </Link>
 
 
-
-    </div>
+    </article>
 
   );
 
 }
-
 
 export default ConsultationCard;

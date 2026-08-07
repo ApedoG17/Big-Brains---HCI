@@ -5,119 +5,116 @@ import "./Navbar.css";
 
 export default function Navbar() {
 
-  const location = useLocation();
+const location = useLocation();
+
+const links = [
+{ name: "Home", path: "/" },
+{ name: "About", path: "/about" },
+{ name: "Services", path: "/services" },
+{ name: "Architects", path: "/architects" },
+{ name: "My Consultations", path: "/my-consultations" },
+];
+
+return (
+
+<header className="haven-navbar-wrapper">
+
+  <div className="haven-navbar-container">
 
 
-  const links = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Architects", path: "/architects" },
-    { name: "Consultation", path: "/consultation/book" },
-    { name: "My Consultations", path: "/my-consultations" },
-  ];
+    {/* Brand Logo Asset */}
 
+    <Link to="/" className="haven-brand">
 
-  return (
+      <div className="logo-badge">
 
-    <header className="haven-navbar-wrapper">
-
-      <div className="haven-navbar-container">
-
-
-        {/* Brand Logo Asset */}
-
-        <Link to="/" className="haven-brand">
-
-          <div className="logo-badge">
-
-            <img 
-              src={logo} 
-              alt="ArchiVerse Logo" 
-              className="haven-logo-img" 
-            />
-
-          </div>
-
-
-          <span className="haven-logo-text">
-            ArchiVerse
-          </span>
-
-
-        </Link>
-
-
-
-
-        {/* Center Nav Pills */}
-
-        <nav className="haven-nav-pills">
-
-
-          {links.map((link) => {
-
-
-            const isActive = location.pathname === link.path;
-
-
-            return (
-
-              <Link
-
-                key={link.path}
-
-                to={link.path}
-
-                className={`haven-nav-link ${isActive ? "active" : ""}`}
-
-              >
-
-                {link.name}
-
-              </Link>
-
-            );
-
-
-          })}
-
-
-        </nav>
-
-
-
-
-
-        {/* Action Button */}
-
-        <div className="haven-nav-actions">
-
-
-          <Link 
-            to="/register" 
-            className="haven-btn-primary"
-          >
-
-            Get Started 
-            <span className="arrow-icon">
-              ↗
-            </span>
-
-
-          </Link>
-
-
-        </div>
-
-
+        <img 
+          src={logo} 
+          alt="ArchiVerse Logo" 
+          className="haven-logo-img" 
+        />
 
       </div>
 
 
-    </header>
+      <span className="haven-logo-text">
+        ArchiVerse
+      </span>
 
 
-  );
+    </Link>
+
+
+
+
+    {/* Center Nav Pills */}
+
+    <nav className="haven-nav-pills">
+
+
+      {links.map((link) => {
+
+
+        const isActive = location.pathname === link.path;
+
+
+        return (
+
+          <Link
+
+            key={link.path}
+
+            to={link.path}
+
+            className={`haven-nav-link ${isActive ? "active" : ""}`}
+
+          >
+
+            {link.name}
+
+          </Link>
+
+        );
+
+
+      })}
+
+
+    </nav>
+
+
+
+
+
+    {/* Action Button */}
+
+    <div className="haven-nav-actions">
+
+
+      <Link 
+        to="/register" 
+        className="haven-btn-primary"
+      >
+
+        Get Started 
+
+        <span className="arrow-icon">
+          ↗
+        </span>
+
+
+      </Link>
+
+
+    </div>
+
+
+
+  </div>
+
+
+</header>
+
+);
 
 }
