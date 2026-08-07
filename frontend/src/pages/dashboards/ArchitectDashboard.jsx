@@ -1,169 +1,148 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
+function ArchitectDashboard() {
 
-function ArchitectDashboard(){
+  const navigate = useNavigate();
 
-const navigate=useNavigate();
-
-
-const logout=()=>{
-
-localStorage.removeItem("token");
-
-navigate("/login");
-
-};
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
 
+  return (
 
-return(
-
-<div className="dashboard">
-
-
-<header className="dashboard-header">
-
-<h1>
-ArchiVerse
-</h1>
+    <div className="dashboard">
 
 
-<button 
-className="logout-btn"
-onClick={logout}
->
-Logout
-</button>
+     <main className="dashboard-content">
 
 
-</header>
+{/* Welcome Section */}
+<div className="welcome-section">
+
+  <div>
+    <h2>
+      Welcome, Architect 👋
+    </h2>
+
+    <p>
+      Manage your projects and client requests.
+    </p>
+  </div>
 
 
-
-<div className="dashboard-content">
-
-
-<h2>
-Welcome, Architect 👋
-</h2>
-
-
-<p>
-Manage your projects and client requests.
-</p>
-
-
-
-<div className="cards">
-
-
-<div className="card">
-
-<h3>
-Assigned Projects
-</h3>
-
-<p>
-6
-</p>
-
-</div>
-
-
-
-<div className="card">
-
-<h3>
-Pending Requests
-</h3>
-
-<p>
-4
-</p>
-
-</div>
-
-
-
-<div className="card">
-
-<h3>
-Upcoming Meetings
-</h3>
-
-<p>
-3
-</p>
-
-</div>
-
-
-
-<div className="card">
-
-<h3>
-Uploaded Designs
-</h3>
-
-<p>
-12
-</p>
-
-</div>
-
+  <button
+    className="logout-btn"
+    onClick={logout}
+  >
+    Logout
+  </button>
 
 </div>
 
 
 
 
-<div className="section-card">
+        {/* Cards */}
+        <div className="cards">
 
 
-<h2>
-Current Projects
-</h2>
+          <div className="card">
+            <h3>
+              Assigned
+              <br />
+              Projects
+            </h3>
 
-
-<div className="item">
-
-<h3>
-Residential Complex
-</h3>
-
-<p>
-Client: Johnson Group
-</p>
-
-</div>
+            <p>6</p>
+          </div>
 
 
 
-<div className="item">
+          <div className="card">
+            <h3>
+              Pending
+              <br />
+              Requests
+            </h3>
 
-<h3>
-Commercial Building
-</h3>
-
-<p>
-Client: ABC Company
-</p>
-
-</div>
-
-
-</div>
+            <p>4</p>
+          </div>
 
 
 
-</div>
+
+          <div className="card">
+            <h3>
+              Upcoming
+              <br />
+              Meetings
+            </h3>
+
+            <p>3</p>
+          </div>
 
 
-</div>
 
 
-)
+          <div className="card">
+            <h3>
+              Uploaded
+              <br />
+              Designs
+            </h3>
+
+            <p>12</p>
+          </div>
+
+
+
+
+          <div
+            className="card clickable-card"
+            onClick={() => navigate("/inbox")}
+          >
+
+            <h3>
+              💬 Messages
+            </h3>
+
+            <p>
+              8
+            </p>
+
+          </div>
+
+
+
+
+          <div
+            className="card clickable-card"
+            onClick={() => navigate("/notifications")}
+          >
+
+            <h3>
+              🔔 Notifications
+            </h3>
+
+            <p>
+              4
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+      </main>
+
+
+    </div>
+
+  );
 
 }
 

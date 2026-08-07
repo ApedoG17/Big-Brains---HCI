@@ -1,160 +1,167 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
+function AdminDashboard() {
 
-function AdminDashboard(){
+  const navigate = useNavigate();
 
-const navigate=useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
 
-const logout=()=>{
+  return (
 
-localStorage.removeItem("token");
+    <div className="dashboard">
 
-navigate("/login");
 
-};
+      <main className="dashboard-content">
 
 
+        {/* Welcome Section */}
+        <div className="welcome-section">
 
-return(
 
-<div className="dashboard">
+          <div>
 
+            <h2>
+              Welcome, Admin 👋
+            </h2>
 
-<header className="dashboard-header">
 
-<h1>
-ArchiVerse
-</h1>
+            <p>
+              Manage users, projects and system activities.
+            </p>
 
+          </div>
 
-<button
-className="logout-btn"
-onClick={logout}
->
-Logout
-</button>
 
 
-</header>
+          <button
+            className="logout-btn"
+            onClick={logout}
+          >
+            Logout
+          </button>
 
 
+        </div>
 
 
-<div className="dashboard-content">
 
 
-<h2>
-Welcome, Admin 👋
-</h2>
 
+        {/* Dashboard Cards */}
+        <div className="cards">
 
-<p>
-Monitor and manage the platform.
-</p>
 
+          <div className="card">
 
+            <h3>
+              Total Users
+            </h3>
 
-<div className="cards">
+            <p>
+              25
+            </p>
 
+          </div>
 
-<div className="card">
 
-<h3>
-Total Users
-</h3>
 
-<p>
-250
-</p>
 
-</div>
+          <div className="card">
 
+            <h3>
+              Active Projects
+            </h3>
 
+            <p>
+              10
+            </p>
 
-<div className="card">
+          </div>
 
-<h3>
-Architects
-</h3>
 
-<p>
-75
-</p>
 
-</div>
 
+          <div className="card">
 
+            <h3>
+              Architects
+            </h3>
 
-<div className="card">
+            <p>
+              8
+            </p>
 
-<h3>
-Clients
-</h3>
+          </div>
 
-<p>
-175
-</p>
 
-</div>
 
 
+          <div className="card">
 
-<div className="card">
+            <h3>
+              Clients
+            </h3>
 
-<h3>
-Active Projects
-</h3>
+            <p>
+              17
+            </p>
 
-<p>
-45
-</p>
+          </div>
 
-</div>
 
 
-</div>
 
+          {/* Messages */}
+          <div
+            className="card clickable-card"
+            onClick={() => navigate("/inbox")}
+          >
 
+            <h3>
+              💬 Messages
+            </h3>
 
+            <p>
+              12
+            </p>
 
-<div className="section-card">
+          </div>
 
 
-<h2>
-System Activity
-</h2>
 
 
-<div className="item">
-New architect registered
-</div>
+          {/* Notifications */}
+          <div
+            className="card clickable-card"
+            onClick={() => navigate("/notifications")}
+          >
 
+            <h3>
+              🔔 Notifications
+            </h3>
 
-<div className="item">
-Project approved
-</div>
+            <p>
+              5
+            </p>
 
+          </div>
 
-<div className="item">
-Blueprint uploaded
-</div>
 
 
+        </div>
 
-</div>
 
+      </main>
 
 
+    </div>
 
-</div>
-
-
-</div>
-
-
-)
+  );
 
 }
 
