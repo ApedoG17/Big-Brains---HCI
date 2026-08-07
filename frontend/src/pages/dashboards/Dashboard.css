@@ -1,33 +1,21 @@
+/* =========================
+DASHBOARD
+========================= */
+
 .dashboard {
   min-height: 100vh;
-  background: #f5f7fb;
+  background: #f4f6fa;
+  color: #172033;
 }
 
 
-/* Header */
-
-.dashboard-header {
-
-  background: #111827;
-  color: white;
-
-  padding: 20px 50px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-}
-
-
-.dashboard-header h1 {
-  margin: 0;
-}
-
+/* =========================
+LOGOUT BUTTON
+========================= */
 
 .logout-btn {
 
-  background: #2563eb;
+  background: #ff6b16;
 
   color: white;
 
@@ -35,50 +23,109 @@
 
   padding: 12px 25px;
 
-  border-radius: 8px;
+  border-radius: 25px;
 
   cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  transition: 0.2s ease;
+
+  margin-left: 30px;
 
 }
 
 
 .logout-btn:hover {
 
-  background:#1d4ed8;
+  background: #e95d0c;
 
 }
 
 
 
-/* Content */
+/* =========================
+CONTENT
+========================= */
 
 .dashboard-content {
 
-  padding:40px 60px;
+  padding: 90px 65px 55px;
+
+  max-width: 1500px;
+
+  margin: 0 auto;
 
 }
 
 
-.dashboard-content h2 {
 
-  color:#111827;
+/* =========================
+WELCOME
+========================= */
+
+.welcome-section {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  background: white;
+
+  padding: 30px 35px;
+
+  border-radius: 20px;
+
+  margin-bottom: 38px;
+
+  box-shadow:
+  0 7px 20px rgba(16,24,39,0.08);
+
+}
+
+
+.welcome-section h2 {
+
+  margin: 0 0 5px;
+
+  color: #172033;
+
+  font-size: 34px;
+
+  font-weight: 700;
+
+}
+
+
+.welcome-section p {
+
+  margin: 0;
+
+  font-size: 18px;
+
+  color: #64748b;
 
 }
 
 
 
-/* Cards */
-
+/* =========================
+DASHBOARD CARDS
+========================= */
 
 .cards {
 
-display:grid;
+  display: grid;
 
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
-gap:25px;
+  gap: 32px;
 
-margin:30px 0;
+  margin: 30px 0 45px;
 
 }
 
@@ -86,13 +133,35 @@ margin:30px 0;
 
 .card {
 
-background:white;
+  background: white;
 
-padding:25px;
+  padding: 30px 35px;
 
-border-radius:15px;
+  min-height: 120px;
 
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
+  border-radius: 20px;
+
+  box-shadow:
+
+  0 7px 20px rgba(16,24,39,0.08);
+
+  transition:
+
+  transform 0.2s ease,
+
+  box-shadow 0.2s ease;
+
+}
+
+
+
+.card:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow:
+
+  0 12px 25px rgba(16,24,39,0.12);
 
 }
 
@@ -100,45 +169,489 @@ box-shadow:0 5px 15px rgba(0,0,0,0.08);
 
 .card h3 {
 
-color:#374151;
+  margin: 0 0 5px;
+
+  color: #30435e;
+
+  font-size: 22px;
 
 }
+
 
 
 .card p {
 
-font-size:32px;
+  margin: 0;
 
-font-weight:bold;
+  font-size: 42px;
 
-color:#2563eb;
+  line-height: 1;
+
+  font-weight: 700;
+
+  color: #0F172A;
 
 }
 
 
 
-/* Lists */
+.card-icon {
 
+  margin-right: 7px;
+
+}
+
+
+
+/* Clickable Cards */
+
+.clickable-card {
+
+  cursor: pointer;
+
+}
+
+
+.clickable-card:hover {
+
+  border-top: 3px solid #ff6b16;
+
+}
+
+
+
+/* =========================
+SECTIONS
+========================= */
+
+.dashboard-section {
+
+  margin-bottom: 45px;
+
+}
+
+
+
+.section-title {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+
+}
+
+
+
+.section-title h2 {
+
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 30px;
+
+}
+
+
+
+/* =========================
+SECTION CARD
+========================= */
 
 .section-card {
 
-background:white;
+  background: white;
 
-padding:25px;
+  padding: 10px 30px;
 
-border-radius:15px;
+  border-radius: 20px;
 
-margin-top:25px;
+  box-shadow:
 
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
+  0 7px 20px rgba(16,24,39,0.07);
 
 }
 
 
+
+/* =========================
+PROJECTS
+========================= */
+
 .item {
 
-padding:15px;
+  padding: 25px 0;
 
-border-bottom:1px solid #eee;
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-bottom: 1px solid #edf0f5;
+
+}
+
+
+.item:last-child {
+
+  border-bottom: none;
+
+}
+
+
+
+.project-details h3 {
+
+  margin:0 0 8px;
+
+  font-size:21px;
+
+  color:#172033;
+
+}
+
+
+
+.project-details p {
+
+  margin:5px 0;
+
+  color:#64748b;
+
+}
+
+
+
+.status {
+
+  color:#0F172A;
+
+  font-weight:600;
+
+  margin-left:5px;
+
+}
+
+
+
+/* =========================
+BUTTONS
+========================= */
+
+.view-btn {
+
+  background:#0F172A;
+
+  color:white;
+
+  border:none;
+
+  padding:11px 22px;
+
+  border-radius:25px;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+}
+
+
+.view-btn:hover {
+
+  background:#1e293b;
+
+}
+
+
+
+.consultation-btn {
+
+  background:#ff6b16;
+
+  color:white;
+
+  border:none;
+
+  padding:12px 22px;
+
+  border-radius:25px;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+}
+
+
+
+.consultation-btn:hover {
+
+  background:#e95d0c;
+
+}
+
+
+
+/* =========================
+MEETINGS
+========================= */
+
+.meeting-item {
+
+  padding:20px 0;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  border-bottom:1px solid #edf0f5;
+
+}
+
+
+
+.meeting-item:last-child {
+
+  border-bottom:none;
+
+}
+
+
+
+.meeting-item h3 {
+
+  margin:0 0 5px;
+
+  color:#172033;
+
+}
+
+
+
+.meeting-item p {
+
+  margin:0;
+
+  color:#64748b;
+
+}
+
+
+
+.meeting-date {
+
+  width:62px;
+
+  height:62px;
+
+  background:#e2e8f0;
+
+  border-radius:15px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  align-items:center;
+
+}
+
+
+
+.meeting-date strong {
+
+  color:#0F172A;
+
+  font-size:24px;
+
+}
+
+
+
+.meeting-date span {
+
+  color:#64748b;
+
+  font-size:13px;
+
+  font-weight:600;
+
+}
+
+
+
+/* =========================
+ACTIVITY
+========================= */
+
+.activity-item {
+
+  display:grid;
+
+  grid-template-columns:10px 1fr auto;
+
+  gap:18px;
+
+  align-items:center;
+
+  padding:20px 0;
+
+  border-bottom:1px solid #edf0f5;
+
+}
+
+
+
+.activity-item:last-child {
+
+  border-bottom:none;
+
+}
+
+
+
+.activity-dot {
+
+  width:9px;
+
+  height:9px;
+
+  border-radius:50%;
+
+  background:#0F172A;
+
+}
+
+
+
+.activity-item h3 {
+
+  margin:0;
+
+  font-size:16px;
+
+  color:#172033;
+
+}
+
+
+
+.activity-item p {
+
+  margin:4px 0 0;
+
+  color:#64748b;
+
+}
+
+
+
+.activity-time {
+
+  color:#94a3b8;
+
+  font-size:13px;
+
+}
+
+
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+  .cards{
+
+    grid-template-columns:repeat(2,1fr);
+
+  }
+
+}
+
+
+
+@media(max-width:700px){
+
+
+.dashboard-content{
+
+  padding:70px 20px 35px;
+
+}
+
+
+.welcome-section{
+
+  flex-direction:column;
+
+  align-items:flex-start;
+
+  gap:20px;
+
+}
+
+
+.welcome-section h2{
+
+  font-size:28px;
+
+}
+
+
+.cards{
+
+  grid-template-columns:1fr;
+
+  gap:18px;
+
+}
+
+
+.section-title{
+
+  flex-direction:column;
+
+  align-items:flex-start;
+
+  gap:15px;
+
+}
+
+
+.item{
+
+  flex-direction:column;
+
+  align-items:flex-start;
+
+  gap:18px;
+
+}
+
+
+.activity-item{
+
+  grid-template-columns:10px 1fr;
+
+}
+
+
+.activity-time{
+
+  display:none;
+
+}
 
 }
