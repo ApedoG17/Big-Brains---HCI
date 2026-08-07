@@ -26,7 +26,8 @@ urlpatterns = [
     
     path('api/projects/', include('apps.projects.urls')),
     path('api/accounts/', include('apps.accounts.urls')),
-     path("api/messaging/", include("apps.messaging.urls")),
+    path("api/messaging/", include("apps.messaging.urls")),
+    path('api/v1/blueprints/', include('apps.blueprints.urls')),
 ]
 
 if settings.DEBUG:
