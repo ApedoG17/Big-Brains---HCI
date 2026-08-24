@@ -1,4 +1,5 @@
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
 const navItems = ['Home', 'Menu', 'Offers', 'Contact']
 
@@ -40,6 +41,8 @@ const featureCards = [
 ]
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('ALL');
   return (
     <div className="restaurant-page">
       <header className="site-header">
@@ -50,22 +53,26 @@ function App() {
           </div>
         </div>
 
-        <nav className="main-nav" aria-label="Main navigation">
+        {/* Mobile Hamburger Button */}
+        <button 
+          className="mobile-toggle-btn"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? '✕' : '☰'}
+        </button>
+
+        {/* Navigation Links */}
+        <nav className={`site-nav ${isMenuOpen ? 'active' : ''}`}>
           {navItems.map((item) => (
-            <a key={item} href="#" className={item === 'Home' ? 'active' : ''}>
+            <a key={item} href={`#${item.toLowerCase()}`} className="nav-item">
               {item}
             </a>
           ))}
+          <div className="nav-actions">
+            <button className="btn-login">LOGIN</button>
+            <button className="btn-order">ORDER NOW</button>
+          </div>
         </nav>
-
-        <div className="header-actions">
-          <button type="button" className="header-btn outline">
-            Login
-          </button>
-          <button type="button" className="header-btn primary">
-            Order now
-          </button>
-        </div>
       </header>
 
       <main className="page-shell">
@@ -108,21 +115,45 @@ function App() {
         </section>
 
         <section className="menu-grid">
-          <div className="section-header">
-            <div>
-              <span className="eyebrow">Pick your plate</span>
-              <h3>Choose your favourite meal</h3>
-            </div>
-            <div className="filter-row">
-              <button type="button" className="chip active">All</button>
-              <button type="button" className="chip">Jollof</button>
-              <button type="button" className="chip">Waakye</button>
-              <button type="button" className="chip">Rice</button>
-            </div>
-          </div>
+          <div className="filter-row">
+  <button 
+    type="button" 
+    className={`chip ${activeCategory === 'ALL' ? 'active' : ''}`}
+    onClick={() => setActiveCategory('ALL')}
+  >
+    All
+  </button>
+  <button 
+    type="button" 
+    className={`chip ${activeCategory === 'JOLLOF' ? 'active' : ''}`}
+    onClick={() => setActiveCategory('JOLLOF')}
+  >
+    Jollof
+  </button>
+  <button 
+    type="button" 
+    className={`chip ${activeCategory === 'WAAKYE' ? 'active' : ''}`}
+    onClick={() => setActiveCategory('WAAKYE')}
+  >
+    Waakye
+  </button>
+  <button 
+    type="button" 
+    className={`chip ${activeCategory === 'RICE' ? 'active' : ''}`}
+    onClick={() => setActiveCategory('RICE')}
+  >
+    Rice
+  </button>
+</div>
 
           <div className="dish-grid">
-            {dishCards.map((dish) => (
+            {dishCards
+  .filter((dish) => 
+    activeCategory === 'ALL' 
+      ? true 
+      : dish.name.toUpperCase().includes(activeCategory)
+  )
+  .map((dish, index) => (
               <article key={dish.name} className="dish-card">
                 <img src={dish.image} alt={dish.name} />
                 <div className="dish-body">
