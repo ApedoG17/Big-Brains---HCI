@@ -1,0 +1,61 @@
+.pd-order-confirmed {
+  max-width: 480px;
+  margin: 0 auto;
+  background: #ffffff;
+  min-height: 100vh;
+  padding: 64px 32px 32px;
+  text-align: center;
+}
+
+.pd-order-confirmed__check {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 28px;
+}
+
+.pd-order-confirmed__check svg {
+  width: 100%;
+  height: 100%;
+}
+
+.pd-order-confirmed__title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0 0 18px;
+}
+
+.pd-order-confirmed__id {
+  font-size: 0.85rem;
+  color: var(--pd-text-muted);
+  margin: 0 0 8px;
+}
+
+.pd-order-confirmed__eta {
+  font-size: 0.85rem;
+  color: var(--pd-text-muted);
+  margin: 0;
+}
+
+.pd-order-confirmed__divider {
+  height: 1px;
+  background: var(--pd-border);
+  margin: 24px 0;
+}
+
+.pd-order-confirmed__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pd-order-confirmed__items li {
+  font-size: 0.95rem;
+  padding: 6px 0;
+}
+
+.pd-order-confirmed__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 8px;
+}
