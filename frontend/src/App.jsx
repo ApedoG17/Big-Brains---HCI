@@ -1,289 +1,153 @@
-import { useState } from 'react'
 import './App.css'
 
-const overviewCards = [
-  { label: 'Active projects', value: '24', delta: '+12%' },
-  { label: 'Tasks complete', value: '86%', delta: '+8%' },
-  { label: 'Team efficiency', value: '94%', delta: '+5%' },
-  { label: 'Revenue', value: '$48.2K', delta: '+19%' },
+const navItems = ['Home', 'Menu', 'Offers', 'Contact']
+
+const specialOffers = [
+  {
+    name: 'Jollof Platter',
+    price: 'GH₵ 50.00',
+    badge: 'Best seller',
+    image:
+      'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    name: 'Waakye Combo',
+    price: 'GH₵ 45.00',
+    badge: 'Chef special',
+    image:
+      'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    name: 'Plain Rice Special',
+    price: 'GH₵ 35.00',
+    badge: 'Family pack',
+    image:
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80',
+  },
 ]
 
-const projects = [
-  { name: 'Brand refresh', owner: 'Design team', progress: 78, color: 'violet' },
-  { name: 'App launch', owner: 'Product', progress: 64, color: 'teal' },
-  { name: 'Research sprint', owner: 'UX research', progress: 52, color: 'amber' },
+const dishCards = [
+  { name: 'Jollof', label: 'Spicy & rich', price: 'GH₵ 35.00', image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Waakye', label: 'Beans & rice', price: 'GH₵ 30.00', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Plain Rice', label: 'Classic comfort', price: 'GH₵ 25.00', image: 'https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Fried Rice', label: 'Savory delight', price: 'GH₵ 40.00', image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80' },
 ]
 
-const tasks = [
-  { title: 'Finalize onboarding copy', due: 'Today', status: 'In review' },
-  { title: 'Approve mobile wireframes', due: 'Tomorrow', status: 'Blocked' },
-  { title: 'Sync stakeholder notes', due: 'Thu', status: 'Ready' },
-]
-
-const activity = [
-  'New user interviews added to the research board',
-  'Marketing approved the launch schedule',
-  'Sprint review moved to Friday at 2:00 PM',
-]
-
-const calendar = [
-  { day: 'Mon', value: 8 },
-  { day: 'Tue', value: 10 },
-  { day: 'Wed', value: 12, strong: true },
-  { day: 'Thu', value: 14 },
-  { day: 'Fri', value: 16 },
+const featureCards = [
+  { title: 'Fast delivery', text: 'Hot meals delivered in under 30 mins.' },
+  { title: 'Fresh ingredients', text: 'Prepared daily for peak taste and quality.' },
+  { title: 'Easy orders', text: 'Quick checkout with flexible delivery options.' },
 ]
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [email, setEmail] = useState('alex@a21.io')
-  const [password, setPassword] = useState('')
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setIsLoggedIn(true)
-  }
-
-  if (!isLoggedIn) {
-    return (
-      <div className="auth-shell">
-        <div className="brand-panel">
-          <div className="brand-badge">A21</div>
-          <p className="eyebrow">Product studio</p>
-          <h1>Design with clarity. Ship with confidence.</h1>
-          <p className="brand-copy">
-            Turn ideas into momentum with a workspace built for product teams,
-            designers, and decision-makers.
-          </p>
-
-          <div className="feature-list">
-            <div>
-              <span className="dot green" />
-              Weekly planning overview
-            </div>
-            <div>
-              <span className="dot blue" />
-              Real-time team alignment
-            </div>
-            <div>
-              <span className="dot violet" />
-              KPI visibility for every sprint
-            </div>
-          </div>
-        </div>
-
-        <div className="login-panel">
-          <div className="login-card">
-            <p className="eyebrow accent">Welcome back</p>
-            <h2>Sign in to A21</h2>
-
-            <form onSubmit={handleSubmit}>
-              <label>
-                Email
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="name@company.com"
-                />
-              </label>
-
-              <label>
-                Password
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="••••••••"
-                />
-              </label>
-
-              <div className="form-row">
-                <label className="remember-me">
-                  <input type="checkbox" defaultChecked />
-                  Remember me
-                </label>
-                <a href="#">Forgot password?</a>
-              </div>
-
-              <button type="submit" className="primary-button">
-                Sign in
-              </button>
-            </form>
-
-            <button type="button" className="secondary-button">
-              Continue with Google
-            </button>
-
-            <p className="signup-copy">
-              Don’t have an account? <a href="#">Create one</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="app-shell">
-      <aside className="sidebar">
-        <div className="brand-lockup">
-          <div className="mini-logo">A21</div>
-          <div>
-            <strong>A21</strong>
-            <span>Workspace</span>
+    <div className="restaurant-page">
+      <header className="site-header">
+        <div className="brand-wrap">
+          <div className="brand-mark">P</div>
+          <div className="brand-copy">
+            <span className="brand-name">Pepper Dem</span>
           </div>
         </div>
 
-        <nav className="nav">
-          <button type="button" className="nav-item active">
-            Overview
-          </button>
-          <button type="button" className="nav-item">
-            Projects
-          </button>
-          <button type="button" className="nav-item">
-            Timeline
-          </button>
-          <button type="button" className="nav-item">
-            Insights
-          </button>
-          <button type="button" className="nav-item">
-            Team
-          </button>
+        <nav className="main-nav" aria-label="Main navigation">
+          {navItems.map((item) => (
+            <a key={item} href="#" className={item === 'Home' ? 'active' : ''}>
+              {item}
+            </a>
+          ))}
         </nav>
 
-        <div className="sidebar-card">
-          <p className="eyebrow">This sprint</p>
-          <h3>71% milestone</h3>
-          <div className="progress-bar">
-            <span style={{ width: '71%' }} />
-          </div>
-          <small>12 tasks left to finish</small>
+        <div className="header-actions">
+          <button type="button" className="header-btn outline">
+            Login
+          </button>
+          <button type="button" className="header-btn primary">
+            Order now
+          </button>
         </div>
-      </aside>
+      </header>
 
-      <main className="content-panel">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">Good morning</p>
-            <h1>Welcome back, Alex</h1>
+      <main className="page-shell">
+        <section className="hero-section">
+          <div className="hero-card red-panel">
+            <span className="mini-tag">Hot, fresh & ready</span>
+            <h1>Hot Jollof, Waakye &amp; Plain Rice — delivered fast.</h1>
+            <p>
+              Enjoy slow-cooked comfort food made fresh with bold Ghanaian flavours,
+              generous portions and quick delivery to your door.
+            </p>
+
+            <div className="cta-row">
+              <button type="button" className="primary-button">Order now</button>
+              <button type="button" className="secondary-button">View menu</button>
+            </div>
+
+            <div className="rating-row">
+              <span>★ 4.9</span>
+              <span>30 min</span>
+              <span>2k+ orders</span>
+            </div>
           </div>
 
-          <div className="topbar-actions">
-            <button type="button" className="ghost-button">
-              Export report
-            </button>
-            <button type="button" className="primary-button compact">
-              + New project
-            </button>
-            <div className="avatar">AR</div>
-          </div>
-        </header>
-
-        <section className="stats-grid">
-          {overviewCards.map((card) => (
-            <article key={card.label} className="stat-card">
-              <span>{card.label}</span>
-              <strong>{card.value}</strong>
-              <em>{card.delta}</em>
+          {specialOffers.map((offer) => (
+            <article key={offer.name} className="offer-card">
+              <div className="offer-header">
+                <span className="small-tag">{offer.badge}</span>
+              </div>
+              <div className="offer-content">
+                <h2>{offer.name}</h2>
+                <div className="offer-meta">
+                  <span>{offer.price}</span>
+                </div>
+                <button type="button" className="mini-button">Add to cart</button>
+              </div>
+              <img src={offer.image} alt={offer.name} />
             </article>
           ))}
         </section>
 
-        <section className="main-grid">
-          <div className="panel project-panel">
-            <div className="panel-header">
-              <h2>Projects</h2>
-              <a href="#">View all</a>
+        <section className="menu-grid">
+          <div className="section-header">
+            <div>
+              <span className="eyebrow">Pick your plate</span>
+              <h3>Choose your favourite meal</h3>
             </div>
-
-            <div className="project-list">
-              {projects.map((project) => (
-                <div key={project.name} className="project-item">
-                  <div className="project-head">
-                    <div className={`project-dot ${project.color}`} />
-                    <div>
-                      <h3>{project.name}</h3>
-                      <small>{project.owner}</small>
-                    </div>
-                  </div>
-
-                  <div className="project-meta">
-                    <span>{project.progress}% complete</span>
-                    <span>Updated 2h ago</span>
-                  </div>
-
-                  <div className="progress-bar">
-                    <span style={{ width: `${project.progress}%` }} />
-                  </div>
-                </div>
-              ))}
+            <div className="filter-row">
+              <button type="button" className="chip active">All</button>
+              <button type="button" className="chip">Jollof</button>
+              <button type="button" className="chip">Waakye</button>
+              <button type="button" className="chip">Rice</button>
             </div>
           </div>
 
-          <div className="panel side-panel">
-            <div className="panel-header">
-              <h2>Schedule</h2>
-              <a href="#">This week</a>
-            </div>
-
-            <div className="calendar-grid">
-              {calendar.map((item) => (
-                <div key={item.day} className={`day-item ${item.strong ? 'active' : ''}`}>
-                  <span>{item.day}</span>
-                  <strong>{item.value}</strong>
+          <div className="dish-grid">
+            {dishCards.map((dish) => (
+              <article key={dish.name} className="dish-card">
+                <img src={dish.image} alt={dish.name} />
+                <div className="dish-body">
+                  <span className="dish-name">{dish.name}</span>
+                  <p>{dish.label}</p>
+                  <div className="dish-footer">
+                    <strong>{dish.price}</strong>
+                    <button type="button" className="dish-button">Add to cart</button>
+                  </div>
                 </div>
-              ))}
-            </div>
-
-            <div className="mini-card">
-              <small>Design review</small>
-              <strong>Wednesday 2:30 PM</strong>
-              <button type="button" className="secondary-button small">
-                Join call
-              </button>
-            </div>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section className="bottom-grid">
-          <div className="panel task-panel">
-            <div className="panel-header">
-              <h2>Tasks</h2>
-              <a href="#">Manage</a>
-            </div>
-
-            <ul className="task-list">
-              {tasks.map((task) => (
-                <li key={task.title}>
-                  <div>
-                    <strong>{task.title}</strong>
-                    <small>{task.due}</small>
-                  </div>
-                  <span className={`task-status ${task.status.toLowerCase().replace(/\s+/g, '-')}`}>
-                    {task.status}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="panel activity-panel">
-            <div className="panel-header">
-              <h2>Activity</h2>
-              <a href="#">Latest</a>
-            </div>
-
-            <ul className="activity-list">
-              {activity.map((line) => (
-                <li key={line}>
-                  <span className="activity-dot" />
-                  {line}
-                </li>
-              ))}
-            </ul>
-          </div>
+        <section className="feature-row">
+          {featureCards.map((feature) => (
+            <article key={feature.title} className="feature-card">
+              <span className="feature-icon">✓</span>
+              <div>
+                <h4>{feature.title}</h4>
+                <p>{feature.text}</p>
+              </div>
+            </article>
+          ))}
         </section>
       </main>
     </div>
