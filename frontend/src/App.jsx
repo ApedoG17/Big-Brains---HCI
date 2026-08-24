@@ -1,4 +1,5 @@
 import './App.css'
+import './components/tokens.css';
 
 const navItems = ['Home', 'Menu', 'Offers', 'Contact']
 
