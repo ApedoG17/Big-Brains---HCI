@@ -1,0 +1,61 @@
+.pd-button {
+  border: none;
+  border-radius: var(--pd-radius-pill);
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 13px 20px;
+}
+
+.pd-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.pd-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pd-button:focus-visible {
+  outline: 2px solid var(--pd-red-start);
+  outline-offset: 2px;
+}
+
+.pd-button--primary {
+  background: linear-gradient(135deg, var(--pd-orange-start), var(--pd-orange-end));
+  color: #ffffff;
+}
+
+.pd-button--secondary {
+  background: #ffffff;
+  color: var(--pd-text);
+  border: 1px solid var(--pd-border);
+}
+
+.pd-button--dark {
+  background: #1d1d1d;
+  color: #ffffff;
+}
+
+.pd-button--chip {
+  background: #f5f1ec;
+  color: #3a3a3a;
+  padding: 10px 16px;
+  font-size: 0.72rem;
+}
+
+.pd-button--chip.pd-button--active {
+  background: #1d1d1d;
+  color: #ffffff;
+}
+
+.pd-button--full {
+  width: 100%;
+  display: block;
+  text-align: center;
+  padding: 16px 20px;
+  font-size: 0.85rem;
+}  

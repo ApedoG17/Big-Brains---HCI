@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import './App.css';
+=======
+import './App.css'
+import './components/tokens.css';
+>>>>>>> origin/main
 
 const navItems = ['Home', 'Menu', 'Offers', 'Contact']
 
