@@ -1,0 +1,31 @@
+/* ArchiVerse — Home
+   Light theme, matches the original white/orange look.
+   Inline styles in Home.jsx carry almost all the visual design
+   (as in the original file) — this stylesheet only holds the
+   handful of things inline styles can't do: @keyframes. */
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

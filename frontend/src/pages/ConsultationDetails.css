@@ -1,0 +1,108 @@
+input,
+select,
+textarea {
+
+    width:100%;
+
+    padding:16px 18px;
+
+    border-radius:16px;
+
+    border:1px solid #e2e8f0;
+
+    background:#ffffff;
+
+    font-family:"Inter", sans-serif;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    color:#0f172a;
+
+    outline:none;
+
+    transition:.25s ease;
+
+}
+
+
+
+input:hover,
+select:hover,
+textarea:hover {
+
+    border-color:#cbd5e1;
+
+}
+
+
+
+input:focus,
+select:focus,
+textarea:focus {
+
+    border-color:#f97316;
+
+    box-shadow:
+    0 0 0 4px rgba(249,115,22,.12);
+
+}
+
+
+
+
+input[type="date"],
+input[type="time"] {
+
+    font-family:"Inter", sans-serif;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#334155;
+
+    cursor:pointer;
+
+}
+
+
+
+
+select {
+
+    font-family:"Inter", sans-serif;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#334155;
+
+    cursor:pointer;
+
+}
+
+
+
+
+textarea {
+
+    height:140px;
+
+    resize:none;
+
+    line-height:1.6;
+
+}
+
+
+
+textarea::placeholder {
+
+    color:#94a3b8;
+
+    font-weight:400;
+
+}

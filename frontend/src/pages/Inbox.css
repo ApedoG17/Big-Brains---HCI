@@ -1,0 +1,133 @@
+.inbox-page {
+
+    min-height:100vh;
+
+    background:#f5f7fb;
+
+    padding:40px 60px;
+
+}
+
+
+
+.inbox-header {
+
+    margin-bottom:30px;
+
+}
+
+
+
+.inbox-header h2 {
+
+    color:#111827;
+
+}
+
+
+
+.conversation-list {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+
+
+.message-card {
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    transition:0.3s;
+
+}
+
+
+
+.message-card:hover {
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+
+}
+
+
+
+.message-info h3 {
+
+    margin:0;
+
+    color:#111827;
+
+}
+
+
+
+.message-preview {
+
+    margin-top:8px;
+
+    color:#6b7280;
+
+}
+
+
+
+.message-time {
+
+    color:#9ca3af;
+
+    font-size:14px;
+
+}
+
+
+
+.unread-badge {
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    margin-top:8px;
+
+}
+
+
+
+.empty-message {
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    color:#6b7280;
+
+}
