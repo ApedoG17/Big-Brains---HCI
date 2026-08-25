@@ -1,0 +1,263 @@
+.checkout-page {
+  min-height: 100vh;
+  padding: 40px 5%;
+  background: #f5efe8;
+  color: #1d1d1d;
+}
+
+.checkout-header {
+  margin-bottom: 30px;
+}
+
+.back-button {
+  border: none;
+  background: transparent;
+  color: #bb4d28;
+  font-weight: 800;
+  cursor: pointer;
+  margin-bottom: 22px;
+}
+
+.checkout-eyebrow,
+.summary-eyebrow {
+  color: #bb4d28;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.checkout-header h1 {
+  margin: 8px 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.checkout-header p {
+  margin: 0;
+  color: #666;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.8fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.checkout-form-card,
+.order-summary {
+  background: #fffdfb;
+  border-radius: 24px;
+  padding: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.checkout-form-card h2,
+.order-summary h2 {
+  margin-bottom: 24px;
+  font-size: 1.35rem;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.form-group label span {
+  color: #888;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #ddd5ce;
+  border-radius: 12px;
+  background: #fff;
+  color: #1d1d1d;
+  outline: none;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #e23b2c;
+  box-shadow: 0 0 0 3px rgba(226, 59, 44, 0.08);
+}
+
+.form-error {
+  display: block;
+  margin-top: 6px;
+  color: #d7382a;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.option-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid #ddd5ce;
+  border-radius: 14px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.option-card:has(input:checked) {
+  border-color: #e23b2c;
+  background: #fff5ef;
+}
+
+.option-card input,
+.payment-option input {
+  accent-color: #e23b2c;
+  margin-top: 3px;
+}
+
+.option-card strong {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.option-card small {
+  display: block;
+  margin-top: 4px;
+  color: #777;
+  font-size: 0.72rem;
+}
+
+.payment-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  border: 1px solid #ddd5ce;
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.payment-option:has(input:checked) {
+  border-color: #e23b2c;
+  background: #fff5ef;
+}
+
+.order-summary {
+  position: sticky;
+  top: 20px;
+}
+
+.order-summary h2 {
+  margin-top: 8px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee7e1;
+}
+
+.summary-item strong {
+  font-size: 0.85rem;
+}
+
+.summary-item span {
+  display: block;
+  margin-top: 4px;
+  color: #777;
+  font-size: 0.75rem;
+}
+
+.summary-line,
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.summary-line {
+  margin-top: 14px;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.summary-total {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #ddd;
+  font-size: 1.15rem;
+}
+
+.place-order-button {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff8a1d, #e23b2c);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.place-order-button:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 850px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .order-summary {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkout-page {
+    padding: 28px 18px;
+  }
+
+  .checkout-form-card,
+  .order-summary {
+    padding: 20px;
+  }
+
+  .option-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-options {
+    flex-direction: column;
+  }
+
+  .payment-option {
+    border-radius: 12px;
+  }
+}
