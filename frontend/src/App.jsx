@@ -1,40 +1,33 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { useState } from 'react';
-import './App.css';
-=======
-import './App.css'
-import './components/tokens.css';
->>>>>>> origin/main
-=======
 import { useState } from 'react'
 import './App.css'
 import Cart from './Cart'
 import Checkout from './Checkout'
 import Confirmation from './Confirmation'
 import TrackOrder from './TrackOrder'
->>>>>>> origin/main
 
 const navItems = ['Home', 'Menu', 'Offers', 'Contact']
 
 const specialOffers = [
   {
+    id: 1,
     name: 'Jollof Platter',
-    price: 'GH₵ 50.00',
+    price: 50,
     badge: 'Best seller',
     image:
       'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80',
   },
   {
+    id: 2,
     name: 'Waakye Combo',
-    price: 'GH₵ 45.00',
+    price: 45,
     badge: 'Chef special',
     image:
       'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=900&q=80',
   },
   {
+    id: 3,
     name: 'Plain Rice Special',
-    price: 'GH₵ 35.00',
+    price: 35,
     badge: 'Family pack',
     image:
       'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80',
@@ -43,30 +36,34 @@ const specialOffers = [
 
 const dishCards = [
   {
+    id: 4,
     name: 'Jollof',
     label: 'Spicy & rich',
-    price: 'GH₵ 35.00',
+    price: 35,
     image:
       'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80',
   },
   {
+    id: 5,
     name: 'Waakye',
     label: 'Beans & rice',
-    price: 'GH₵ 30.00',
+    price: 30,
     image:
       'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
   },
   {
+    id: 6,
     name: 'Plain Rice',
     label: 'Classic comfort',
-    price: 'GH₵ 25.00',
+    price: 25,
     image:
       'https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=800&q=80',
   },
   {
+    id: 7,
     name: 'Fried Rice',
     label: 'Savory delight',
-    price: 'GH₵ 40.00',
+    price: 40,
     image:
       'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80',
   },
@@ -88,41 +85,84 @@ const featureCards = [
 ]
 
 function App() {
-<<<<<<< HEAD
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('ALL');
-=======
   const [currentScreen, setCurrentScreen] = useState('home')
+  const [cartItems, setCartItems] = useState([])
+
+  const addToCart = (item) => {
+    setCartItems((currentItems) => {
+      const existingItem = currentItems.find(
+        (cartItem) => cartItem.id === item.id
+      )
+
+      if (existingItem) {
+        return currentItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity + 1,
+              }
+            : cartItem
+        )
+      }
+
+      return [
+        ...currentItems,
+        {
+          ...item,
+          quantity: 1,
+        },
+      ]
+    })
+
+    setCurrentScreen('cart')
+  }
+
+  const goHome = () => {
+    setCurrentScreen('home')
+  }
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id)
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: 'smooth',
+      })
+    }
+  }
 
   if (currentScreen === 'cart') {
-  return <Cart onCheckout={() => setCurrentScreen('checkout')} />
-}
-
-if (currentScreen === 'checkout') {
-  return (
-    <Checkout
-      onBack={() => setCurrentScreen('cart')}
-      onPlaceOrder={() => setCurrentScreen('confirmation')}
-    />
-  )
-
+    return (
+      <Cart
+        items={cartItems}
+        setItems={setCartItems}
+        onCheckout={() => setCurrentScreen('checkout')}
+      />
+    )
   }
-if (currentScreen === 'confirmation') {
-  return (
-    <Confirmation
-      onTrackOrder={() => setCurrentScreen('track')}
-      onHome={() => setCurrentScreen('home')}
-    />
-  )
-}
-if (currentScreen === 'track') {
-  return (
-    <TrackOrder
-      onHome={() => setCurrentScreen('home')}
-    />
-  )
-}
->>>>>>> origin/main
+
+  if (currentScreen === 'checkout') {
+    return (
+      <Checkout
+        onBack={() => setCurrentScreen('cart')}
+        onPlaceOrder={() => setCurrentScreen('confirmation')}
+      />
+    )
+  }
+
+  if (currentScreen === 'confirmation') {
+    return (
+      <Confirmation
+        onTrackOrder={() => setCurrentScreen('track')}
+        onHome={goHome}
+      />
+    )
+  }
+
+  if (currentScreen === 'track') {
+    return <TrackOrder onHome={goHome} />
+  }
+
   return (
     <div className="restaurant-page">
       <header className="site-header">
@@ -134,39 +174,37 @@ if (currentScreen === 'track') {
           </div>
         </div>
 
-        {/* Mobile Hamburger Button */}
-        <button 
-          className="mobile-toggle-btn"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? '✕' : '☰'}
-        </button>
-
-        {/* Navigation Links */}
-        <nav className={`site-nav ${isMenuOpen ? 'active' : ''}`}>
+        <nav className="main-nav" aria-label="Main navigation">
           {navItems.map((item) => (
-<<<<<<< HEAD
-            <a key={item} href={`#${item.toLowerCase()}`} className="nav-item">
-=======
             <a
               key={item}
-              href="#"
+              href={`#${item.toLowerCase()}`}
               className={item === 'Home' ? 'active' : ''}
+              onClick={(event) => {
+                event.preventDefault()
+
+                if (item === 'Home') {
+                  setCurrentScreen('home')
+                  window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                  })
+                } else {
+                  scrollToSection(item.toLowerCase())
+                }
+              }}
             >
->>>>>>> origin/main
               {item}
             </a>
           ))}
-          <div className="nav-actions">
-            <button className="btn-login">LOGIN</button>
-            <button className="btn-order">ORDER NOW</button>
-          </div>
         </nav>
-<<<<<<< HEAD
-=======
 
         <div className="header-actions">
-          <button type="button" className="header-btn outline">
+          <button
+            type="button"
+            className="header-btn outline"
+            onClick={() => alert('Login feature coming soon!')}
+          >
             Login
           </button>
 
@@ -178,7 +216,6 @@ if (currentScreen === 'track') {
             Order now
           </button>
         </div>
->>>>>>> origin/main
       </header>
 
       <main className="page-shell">
@@ -187,7 +224,9 @@ if (currentScreen === 'track') {
             <span className="mini-tag">Hot, fresh & ready</span>
 
             <h1>
-              Hot Jollof, Waakye &amp; Plain Rice — delivered fast.
+              Authentic Ghanaian
+              <br />
+              comfort food.
             </h1>
 
             <p>
@@ -204,121 +243,73 @@ if (currentScreen === 'track') {
                 Order now
               </button>
 
-              <button type="button" className="secondary-button">
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => scrollToSection('menu')}
+              >
                 View menu
               </button>
             </div>
 
             <div className="rating-row">
               <span>★ 4.9</span>
-              <span>30 min</span>
-              <span>2k+ orders</span>
+              <span>1,200+ happy customers</span>
             </div>
           </div>
 
-          {specialOffers.map((offer) => (
-            <article key={offer.name} className="offer-card">
-              <div className="offer-header">
-                <span className="small-tag">{offer.badge}</span>
-              </div>
+          <div className="hero-image-card">
+            <img
+              src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=1000&q=80"
+              alt="Delicious Ghanaian rice meal"
+            />
 
-              <div className="offer-content">
-                <h2>{offer.name}</h2>
-
-                <div className="offer-meta">
-                  <span>{offer.price}</span>
-                </div>
-
-                <button type="button" className="mini-button">
-                  Add to cart
-                </button>
-              </div>
-
-              <img src={offer.image} alt={offer.name} />
-            </article>
-          ))}
+            <div className="hero-image-label">
+              <strong>Made with love</strong>
+              <span>Authentic Ghanaian flavours</span>
+            </div>
+          </div>
         </section>
 
-        <section className="menu-grid">
-<<<<<<< HEAD
-          <div className="filter-row">
-  <button 
-    type="button" 
-    className={`chip ${activeCategory === 'ALL' ? 'active' : ''}`}
-    onClick={() => setActiveCategory('ALL')}
-  >
-    All
-  </button>
-  <button 
-    type="button" 
-    className={`chip ${activeCategory === 'JOLLOF' ? 'active' : ''}`}
-    onClick={() => setActiveCategory('JOLLOF')}
-  >
-    Jollof
-  </button>
-  <button 
-    type="button" 
-    className={`chip ${activeCategory === 'WAAKYE' ? 'active' : ''}`}
-    onClick={() => setActiveCategory('WAAKYE')}
-  >
-    Waakye
-  </button>
-  <button 
-    type="button" 
-    className={`chip ${activeCategory === 'RICE' ? 'active' : ''}`}
-    onClick={() => setActiveCategory('RICE')}
-  >
-    Rice
-  </button>
-</div>
-=======
-          <div className="section-header">
+        <section className="offers-section" id="offers">
+          <div className="section-heading">
             <div>
-              <span className="eyebrow">Pick your plate</span>
-              <h3>Choose your favourite meal</h3>
+              <span className="section-tag">Today's favourites</span>
+              <h2>Special offers</h2>
             </div>
 
-            <div className="filter-row">
-              <button type="button" className="chip active">
-                All
-              </button>
-
-              <button type="button" className="chip">
-                Jollof
-              </button>
-
-              <button type="button" className="chip">
-                Waakye
-              </button>
-
-              <button type="button" className="chip">
-                Rice
-              </button>
-            </div>
+            <button
+              type="button"
+              className="text-button"
+              onClick={() => scrollToSection('menu')}
+            >
+              View all →
+            </button>
           </div>
->>>>>>> origin/main
 
-          <div className="dish-grid">
-            {dishCards
-  .filter((dish) => 
-    activeCategory === 'ALL' 
-      ? true 
-      : dish.name.toUpperCase().includes(activeCategory)
-  )
-  .map((dish, index) => (
-              <article key={dish.name} className="dish-card">
-                <img src={dish.image} alt={dish.name} />
+          <div className="offer-grid">
+            {specialOffers.map((offer) => (
+              <article className="offer-card" key={offer.id}>
+                <div className="offer-image-wrap">
+                  <img src={offer.image} alt={offer.name} />
+                  <span className="offer-badge">{offer.badge}</span>
+                </div>
 
-                <div className="dish-body">
-                  <span className="dish-name">{dish.name}</span>
+                <div className="offer-content">
+                  <div>
+                    <h3>{offer.name}</h3>
+                    <p>Freshly prepared and packed with flavour.</p>
+                  </div>
 
-                  <p>{dish.label}</p>
+                  <div className="offer-bottom">
+                    <strong>GH₵ {offer.price}</strong>
 
-                  <div className="dish-footer">
-                    <strong>{dish.price}</strong>
-
-                    <button type="button" className="dish-button">
-                      Add to cart
+                    <button
+                      type="button"
+                      className="small-order-button"
+                      onClick={() => addToCart(offer)}
+                    >
+                      Add
                     </button>
                   </div>
                 </div>
@@ -327,19 +318,121 @@ if (currentScreen === 'track') {
           </div>
         </section>
 
-        <section className="feature-row">
-          {featureCards.map((feature) => (
-            <article key={feature.title} className="feature-card">
-              <span className="feature-icon">✓</span>
+        <section className="menu-section" id="menu">
+          <div className="section-heading">
+            <div>
+              <span className="section-tag">Our menu</span>
+              <h2>Choose your favourite</h2>
+            </div>
 
-              <div>
-                <h4>{feature.title}</h4>
+            <p>Good food. Big portions. Zero stress.</p>
+          </div>
+
+          <div className="dish-grid">
+            {dishCards.map((dish) => (
+              <article className="dish-card" key={dish.id}>
+                <img src={dish.image} alt={dish.name} />
+
+                <div className="dish-content">
+                  <div>
+                    <h3>{dish.name}</h3>
+                    <p>{dish.label}</p>
+                  </div>
+
+                  <div className="dish-footer">
+                    <strong>GH₵ {dish.price}</strong>
+
+                    <button
+                      type="button"
+                      className="add-button"
+                      onClick={() => addToCart(dish)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="features-section">
+          <div className="section-heading centered">
+            <span className="section-tag">Why Pepper Dem?</span>
+            <h2>Food made simple</h2>
+          </div>
+
+          <div className="feature-grid">
+            {featureCards.map((feature, index) => (
+              <article className="feature-card" key={feature.title}>
+                <div className="feature-number">0{index + 1}</div>
+
+                <h3>{feature.title}</h3>
                 <p>{feature.text}</p>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="order-banner" id="contact">
+          <div>
+            <span className="section-tag">Ready to eat?</span>
+
+            <h2>Your next favourite meal is just one click away.</h2>
+
+            <p>
+              Order your favourite Ghanaian meals and enjoy them wherever you
+              are.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            className="primary-button"
+            onClick={() => setCurrentScreen('cart')}
+          >
+            Start your order
+          </button>
         </section>
       </main>
+
+      <footer className="site-footer">
+        <div className="footer-brand">
+          <div className="brand-mark">P</div>
+
+          <div>
+            <strong>Pepper Dem</strong>
+            <p>Authentic Ghanaian comfort food.</p>
+          </div>
+        </div>
+
+        <div className="footer-links">
+          <a href="#menu" onClick={(e) => {
+            e.preventDefault()
+            scrollToSection('menu')
+          }}>
+            Menu
+          </a>
+
+          <a href="#offers" onClick={(e) => {
+            e.preventDefault()
+            scrollToSection('offers')
+          }}>
+            Offers
+          </a>
+
+          <a href="#contact" onClick={(e) => {
+            e.preventDefault()
+            scrollToSection('contact')
+          }}>
+            Contact
+          </a>
+        </div>
+
+        <p className="copyright">
+          © 2026 Pepper Dem. All rights reserved.
+        </p>
+      </footer>
     </div>
   )
 }

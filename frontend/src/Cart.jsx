@@ -1,28 +1,6 @@
-import { useState } from 'react'
 import './Cart.css'
 
-const initialItems = [
-  {
-    id: 1,
-    name: 'Jollof Platter',
-    price: 50,
-    quantity: 1,
-    image:
-      'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 2,
-    name: 'Waakye Combo',
-    price: 45,
-    quantity: 1,
-    image:
-      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
-  },
-]
-
-function Cart({ onCheckout }) {
-  const [items, setItems] = useState(initialItems)
-
+function Cart({ items, setItems, onCheckout }) {
   const updateQuantity = (id, change) => {
     setItems((currentItems) =>
       currentItems
