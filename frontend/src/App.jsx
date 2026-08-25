@@ -1,9 +1,19 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+import { useState } from 'react';
+import './App.css';
+=======
+import './App.css'
+import './components/tokens.css';
+>>>>>>> origin/main
+=======
 import { useState } from 'react'
 import './App.css'
 import Cart from './Cart'
 import Checkout from './Checkout'
 import Confirmation from './Confirmation'
 import TrackOrder from './TrackOrder'
+>>>>>>> origin/main
 
 const navItems = ['Home', 'Menu', 'Offers', 'Contact']
 
@@ -78,6 +88,10 @@ const featureCards = [
 ]
 
 function App() {
+<<<<<<< HEAD
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('ALL');
+=======
   const [currentScreen, setCurrentScreen] = useState('home')
 
   if (currentScreen === 'cart') {
@@ -108,6 +122,7 @@ if (currentScreen === 'track') {
     />
   )
 }
+>>>>>>> origin/main
   return (
     <div className="restaurant-page">
       <header className="site-header">
@@ -119,17 +134,36 @@ if (currentScreen === 'track') {
           </div>
         </div>
 
-        <nav className="main-nav" aria-label="Main navigation">
+        {/* Mobile Hamburger Button */}
+        <button 
+          className="mobile-toggle-btn"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? '✕' : '☰'}
+        </button>
+
+        {/* Navigation Links */}
+        <nav className={`site-nav ${isMenuOpen ? 'active' : ''}`}>
           {navItems.map((item) => (
+<<<<<<< HEAD
+            <a key={item} href={`#${item.toLowerCase()}`} className="nav-item">
+=======
             <a
               key={item}
               href="#"
               className={item === 'Home' ? 'active' : ''}
             >
+>>>>>>> origin/main
               {item}
             </a>
           ))}
+          <div className="nav-actions">
+            <button className="btn-login">LOGIN</button>
+            <button className="btn-order">ORDER NOW</button>
+          </div>
         </nav>
+<<<<<<< HEAD
+=======
 
         <div className="header-actions">
           <button type="button" className="header-btn outline">
@@ -144,6 +178,7 @@ if (currentScreen === 'track') {
             Order now
           </button>
         </div>
+>>>>>>> origin/main
       </header>
 
       <main className="page-shell">
@@ -205,6 +240,38 @@ if (currentScreen === 'track') {
         </section>
 
         <section className="menu-grid">
+<<<<<<< HEAD
+          <div className="filter-row">
+  <button 
+    type="button" 
+    className={`chip ${activeCategory === 'ALL' ? 'active' : ''}`}
+    onClick={() => setActiveCategory('ALL')}
+  >
+    All
+  </button>
+  <button 
+    type="button" 
+    className={`chip ${activeCategory === 'JOLLOF' ? 'active' : ''}`}
+    onClick={() => setActiveCategory('JOLLOF')}
+  >
+    Jollof
+  </button>
+  <button 
+    type="button" 
+    className={`chip ${activeCategory === 'WAAKYE' ? 'active' : ''}`}
+    onClick={() => setActiveCategory('WAAKYE')}
+  >
+    Waakye
+  </button>
+  <button 
+    type="button" 
+    className={`chip ${activeCategory === 'RICE' ? 'active' : ''}`}
+    onClick={() => setActiveCategory('RICE')}
+  >
+    Rice
+  </button>
+</div>
+=======
           <div className="section-header">
             <div>
               <span className="eyebrow">Pick your plate</span>
@@ -229,9 +296,16 @@ if (currentScreen === 'track') {
               </button>
             </div>
           </div>
+>>>>>>> origin/main
 
           <div className="dish-grid">
-            {dishCards.map((dish) => (
+            {dishCards
+  .filter((dish) => 
+    activeCategory === 'ALL' 
+      ? true 
+      : dish.name.toUpperCase().includes(activeCategory)
+  )
+  .map((dish, index) => (
               <article key={dish.name} className="dish-card">
                 <img src={dish.image} alt={dish.name} />
 
