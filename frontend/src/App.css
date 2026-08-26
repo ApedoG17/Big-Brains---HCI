@@ -440,7 +440,7 @@
     min-height: auto;
   }
 }
-/* Mobile Navigation Media Query */
+/* Mobile Navigation */
 .mobile-toggle-btn {
   display: none;
   background: none;
@@ -455,27 +455,28 @@
     display: block;
   }
 
-  .site-nav {
+  .main-nav {
     display: none;
     flex-direction: column;
+    align-items: flex-start;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    background-color: #fff;
-    padding: 1.5rem;
+    background: #fff;
+    padding: 1rem 1.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 100;
   }
 
-  .site-nav.active {
+  .main-nav.active {
     display: flex;
   }
 
-  .nav-actions {
+  .header-actions {
     display: flex;
-    flex-direction: column;
     gap: 0.5rem;
-    margin-top: 1rem;
   }
 }
+
+  
