@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import './App.css'
 import Cart from './Cart'
 import Checkout from './Checkout'
@@ -86,6 +86,7 @@ const featureCards = [
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home')
+  const [menuOpen, setMenuOpen] = useState(false)
   const [cartItems, setCartItems] = useState([])
 
   const addToCart = (item) => {
@@ -174,7 +175,15 @@ function App() {
           </div>
         </div>
 
-        <nav className="main-nav" aria-label="Main navigation">
+        <button
+          type="button"
+          className="mobile-toggle-btn"
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >☰</button>
+
+        <nav className={`main-nav ${menuOpen ? 'active' : ''}`} aria-label="Main navigation">
           {navItems.map((item) => (
             <a
               key={item}
@@ -253,7 +262,7 @@ function App() {
             </div>
 
             <div className="rating-row">
-              <span>★ 4.9</span>
+              <span>â˜… 4.9</span>
               <span>1,200+ happy customers</span>
             </div>
           </div>
@@ -283,7 +292,7 @@ function App() {
               className="text-button"
               onClick={() => scrollToSection('menu')}
             >
-              View all →
+              View all â†’
             </button>
           </div>
 
@@ -302,7 +311,7 @@ function App() {
                   </div>
 
                   <div className="offer-bottom">
-                    <strong>GH₵ {offer.price}</strong>
+                    <strong>GHâ‚µ {offer.price}</strong>
 
                     <button
                       type="button"
@@ -340,7 +349,7 @@ function App() {
                   </div>
 
                   <div className="dish-footer">
-                    <strong>GH₵ {dish.price}</strong>
+                    <strong>GHâ‚µ {dish.price}</strong>
 
                     <button
                       type="button"
@@ -430,7 +439,7 @@ function App() {
         </div>
 
         <p className="copyright">
-          © 2026 Pepper Dem. All rights reserved.
+          Â© 2026 Pepper Dem. All rights reserved.
         </p>
       </footer>
     </div>
@@ -438,3 +447,5 @@ function App() {
 }
 
 export default App
+
+
