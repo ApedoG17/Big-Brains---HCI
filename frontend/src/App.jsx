@@ -219,22 +219,7 @@ function Footer({ onNav }) {
 
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
-const menuTabs = ['All', 'Jollof', 'Waakye', 'Plain Rice', 'Drinks']
-
-function getTabDishes(tab) {
-  switch (tab) {
-    case 'Jollof': return jollofDishes
-    case 'Waakye': return waakyeDishes
-    case 'Plain Rice': return plainRiceDishes
-    default: return allDishes
-  }
-}
-
 function HomePage({ onAdd, onCartClick, cartCount, onNav }) {
-  const [activeTab, setActiveTab] = useState('All')
-
-  const dishes = getTabDishes(activeTab)
-
   return (
     <div className="page">
       <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="home" />
@@ -297,30 +282,11 @@ function HomePage({ onAdd, onCartClick, cartCount, onNav }) {
           a size, choose a protein, and we'll handle the rest.
         </p>
 
-        <div className="tab-row">
-          {menuTabs.map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              className={`tab-btn ${activeTab === tab ? 'tab-active' : ''}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
+        <div className="dish-grid">
+          {allDishes.map((dish) => (
+            <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
           ))}
         </div>
-
-        {activeTab === 'Drinks' ? (
-          <div className="empty-state">
-            <p>🥤 Drinks coming soon!</p>
-          </div>
-        ) : (
-          <div className="dish-grid">
-            {dishes.map((dish) => (
-              <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
-            ))}
-          </div>
-        )}
       </section>
 
       {/* Features */}
