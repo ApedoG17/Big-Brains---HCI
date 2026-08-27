@@ -889,39 +889,7 @@ img    { display: block; max-width: 100%; }
   padding: 48px 32px 64px;
 }
 
-/* ─── Responsive ─────────────────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .dish-grid { grid-template-columns: repeat(2, 1fr); }
-  .features-grid { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
-  .navbar-inner { padding: 0 20px; gap: 16px; }
-  .nav-phone { display: none; }
-}
 
-@media (max-width: 640px) {
-  .hero-section { flex-direction: column; padding: 40px 20px; }
-  .hero-image { width: 100%; max-width: 100%; }
-  .hero-content { padding-left: 0; margin-left: 0; }
-  .hero-stats { gap: 16px; }
-  .dish-grid, .dish-grid-two, .dish-grid-three { grid-template-columns: 1fr; }
-  .dish-grid-three .dish-card:last-child:nth-child(odd) { grid-column: auto; max-width: none; }
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
-  .nav-right { display: none; }
-  .footer-inner { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
-  .cta-banner { padding: 28px 20px; }
-  .featured-card { flex-direction: column; padding: 24px 20px; }
-  .featured-right { width: 100%; }
-  .features-grid { grid-template-columns: 1fr; }
-  .menu-section, .range-section, .featured-section { padding-left: 16px; padding-right: 16px; }
-  .contact-split {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 32px 16px;
-  }
-  .contact-cards { grid-template-columns: 1fr; }
-}
 
 /* ─── Footer Socials ─────────────────────────────────────────────────────────── */
 .footer-socials {
@@ -1109,4 +1077,68 @@ img    { display: block; max-width: 100%; }
   align-self: flex-start;
   color: var(--dark);
   font-size: 0.875rem;
+}
+
+/* ─── Micro-animations ───────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-transition {
+  animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.dish-card:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:active,
+.btn-outline-white:active,
+.add-to-cart-btn:active,
+.place-order-button:active,
+.cart-btn:active,
+.hero-cta button:active {
+  transform: scale(0.96);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .dish-grid { grid-template-columns: repeat(2, 1fr); }
+  .features-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .navbar-inner { padding: 0 20px; gap: 16px; }
+  .nav-phone { display: none; }
+  .contact-split { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
+}
+
+@media (max-width: 640px) {
+  .hero-section { flex-direction: column; padding: 40px 20px; }
+  .hero-image { width: 100%; max-width: 100%; }
+  .hero-content { padding-left: 0; margin-left: 0; }
+  .hero-stats { gap: 16px; }
+  .dish-grid, .dish-grid-two, .dish-grid-three { grid-template-columns: 1fr; }
+  .dish-grid-three .dish-card:last-child:nth-child(odd) { grid-column: auto; max-width: none; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-right { display: none; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+  .cta-banner { padding: 28px 20px; }
+  .featured-card { flex-direction: column; padding: 24px 20px; }
+  .featured-right { width: 100%; }
+  .features-grid { grid-template-columns: 1fr; }
+  .menu-section, .range-section, .featured-section { padding-left: 16px; padding-right: 16px; }
+  .contact-split {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 32px 16px;
+  }
+  .contact-cards { grid-template-columns: 1fr; gap: 12px; }
+  .contact-card { padding: 16px; gap: 12px; }
+  .contact-card-icon { width: 48px; height: 48px; }
+  .contact-card-icon svg { width: 22px; height: 22px; }
+  .contact-title { font-size: 2rem; margin-bottom: 12px; }
+  .contact-subtitle { font-size: 0.95rem; }
+  .contact-map-frame { height: 320px; }
 }

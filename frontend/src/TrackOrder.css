@@ -113,6 +113,7 @@
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, #ff8a1d, #e23b2c);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tracking-steps {
