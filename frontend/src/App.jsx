@@ -4,6 +4,9 @@ import Cart from './Cart'
 import Checkout from './Checkout'
 import Confirmation from './Confirmation'
 import TrackOrder from './TrackOrder'
+import KitchenDisplay from './KitchenDisplay'
+import AuthModal from './AuthModal'
+import { getUser, setUser, setToken, fetchApi } from './api'
 
 // ─── Image Imports ────────────────────────────────────────────────────────────
 import imgHero from './assets/plain rice combo.jpeg'
@@ -63,7 +66,7 @@ function Logo({ onClick }) {
   )
 }
 
-function Navbar({ cartCount, onCartClick, onNavClick, activePage }) {
+function Navbar({ cartCount, onCartClick, onNavClick, activePage, user, onLoginClick, onLogout }) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
@@ -86,6 +89,15 @@ function Navbar({ cartCount, onCartClick, onNavClick, activePage }) {
         {/* Right side */}
         <div className="nav-right">
           <a href="tel:+233501214499" className="nav-phone">📞 +233 50 121 4499</a>
+          {user ? (
+            <button type="button" className="nav-link" style={{ background: 'none' }} onClick={onLogout}>
+              Logout ({user.name})
+            </button>
+          ) : (
+            <button type="button" className="nav-link" style={{ background: 'none' }} onClick={onLoginClick}>
+              Login
+            </button>
+          )}
           <button
             type="button"
             className="cart-btn"
@@ -113,6 +125,17 @@ function Navbar({ cartCount, onCartClick, onNavClick, activePage }) {
         <div className="nav-mobile-menu">
           <a href="#" className="nav-mobile-link" onClick={(e) => { e.preventDefault(); onNavClick('home'); setMobileOpen(false) }}>Home</a>
           <a href="#" className="nav-mobile-link" onClick={(e) => { e.preventDefault(); onNavClick('contact'); setMobileOpen(false) }}>Contact</a>
+          
+          {user ? (
+            <button type="button" className="nav-mobile-link" style={{ background: 'none', textAlign: 'left' }} onClick={() => { onLogout(); setMobileOpen(false) }}>
+              Logout ({user.name})
+            </button>
+          ) : (
+            <button type="button" className="nav-mobile-link" style={{ background: 'none', textAlign: 'left' }} onClick={() => { onLoginClick(); setMobileOpen(false) }}>
+              Login
+            </button>
+          )}
+
           <div className="nav-mobile-actions">
             <a href="tel:+233501214499" className="nav-mobile-phone">📞 +233 50 121 4499</a>
             <button type="button" className="cart-btn" onClick={() => { onCartClick(); setMobileOpen(false) }}>
@@ -219,25 +242,10 @@ function Footer({ onNav }) {
 
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
-const menuTabs = ['All', 'Jollof', 'Waakye', 'Plain Rice', 'Drinks']
-
-function getTabDishes(tab) {
-  switch (tab) {
-    case 'Jollof': return jollofDishes
-    case 'Waakye': return waakyeDishes
-    case 'Plain Rice': return plainRiceDishes
-    default: return allDishes
-  }
-}
-
-function HomePage({ onAdd, onCartClick, cartCount, onNav }) {
-  const [activeTab, setActiveTab] = useState('All')
-
-  const dishes = getTabDishes(activeTab)
-
+function HomePage({ onAdd, onCartClick, cartCount, onNav, activePage, user, onLoginClick, onLogout }) {
   return (
-    <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="home" />
+    <div className="page page-transition">
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={activePage} user={user} onLoginClick={onLoginClick} onLogout={onLogout} />
 
       {/* Hero */}
       <section className="hero-section">
@@ -297,30 +305,11 @@ function HomePage({ onAdd, onCartClick, cartCount, onNav }) {
           a size, choose a protein, and we'll handle the rest.
         </p>
 
-        <div className="tab-row">
-          {menuTabs.map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              className={`tab-btn ${activeTab === tab ? 'tab-active' : ''}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
+        <div className="dish-grid">
+          {allDishes.map((dish) => (
+            <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
           ))}
         </div>
-
-        {activeTab === 'Drinks' ? (
-          <div className="empty-state">
-            <p>🥤 Drinks coming soon!</p>
-          </div>
-        ) : (
-          <div className="dish-grid">
-            {dishes.map((dish) => (
-              <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
-            ))}
-          </div>
-        )}
       </section>
 
       {/* Features */}
@@ -407,13 +396,13 @@ const categoryConfig = {
   },
 }
 
-function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav }) {
+function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav, activePage, user, onLoginClick, onLogout }) {
   const config = categoryConfig[category]
   const [featuredIdx, setFeaturedIdx] = useState(0)
 
   return (
     <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={category} />
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={activePage} user={user} onLoginClick={onLoginClick} onLogout={onLogout} />
 
       {/* Category Header */}
       <section className="cat-header">
@@ -481,10 +470,10 @@ function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav }) {
 
 // ─── Contact Page ────────────────────────────────────────────────────────────
 
-function ContactPage({ onCartClick, cartCount, onNav }) {
+function ContactPage({ onCartClick, cartCount, onNav, activePage, user, onLoginClick, onLogout }) {
   return (
-    <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="contact" />
+    <div className="page page-transition">
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={activePage} user={user} onLoginClick={onLoginClick} onLogout={onLogout} />
 
       <div className="contact-split">
 
@@ -632,6 +621,31 @@ function App() {
   const [screen, setScreen] = useState('home')
   const [, setScreenHistory] = useState([])
   const [cartItems, setCartItems] = useState([])
+  const [user, setUserState] = useState(() => getUser())
+  const [showAuthModal, setShowAuthModal] = useState(false)
+
+  // Sync cart to API whenever it changes
+  const updateCartAndSync = (newItems) => {
+    setCartItems(newItems)
+    if (user) {
+      const apiItems = newItems.map(item => ({
+        itemId: item.id,
+        quantity: item.quantity,
+        selectedPrice: item.price
+      }))
+      fetchApi('/cart/sync', {
+        method: 'POST',
+        body: JSON.stringify({ items: apiItems })
+      }).catch(err => console.error('Failed to sync cart', err))
+    }
+  }
+
+  const handleLogout = () => {
+    setToken(null)
+    setUser(null)
+    setUserState(null)
+    setCartItems([]) // Clear local cart on logout
+  }
 
   const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0)
 
@@ -650,15 +664,19 @@ function App() {
   }
 
   const addToCart = (item) => {
+    let newCart
     setCartItems((prev) => {
       const existing = prev.find((c) => c.id === item.id)
       if (existing) {
-        return prev.map((c) =>
+        newCart = prev.map((c) =>
           c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c
         )
+      } else {
+        newCart = [...prev, { ...item, price: item.priceOptions[0], quantity: 1 }]
       }
-      return [...prev, { ...item, price: item.priceOptions[0], quantity: 1 }]
+      return newCart
     })
+    updateCartAndSync(newCart || [...cartItems, { ...item, price: item.priceOptions[0], quantity: 1 }])
     navigateTo('cart')
   }
 
@@ -667,44 +685,68 @@ function App() {
     setScreenHistory([])
   }
 
-  if (screen === 'cart')
-    return <Cart items={cartItems} setItems={setCartItems} onBack={goBack} onCheckout={() => navigateTo('checkout')} />
-  if (screen === 'checkout')
-    return <Checkout onBack={goBack} onPlaceOrder={() => navigateTo('confirmation')} />
-  if (screen === 'confirmation')
-    return <Confirmation onBack={goBack} onTrackOrder={() => navigateTo('track')} onHome={goHome} />
-  if (screen === 'track')
-    return <TrackOrder onBack={goBack} />
+  const renderScreen = () => {
+    if (screen === 'cart')
+      return <Cart items={cartItems} setItems={updateCartAndSync} onBack={goBack} onCheckout={() => navigateTo('checkout')} />
+    if (screen === 'checkout')
+      return <Checkout cartItems={cartItems} onBack={goBack} onPlaceOrder={() => navigateTo('confirmation')} clearCart={() => updateCartAndSync([])} user={user} setShowAuthModal={setShowAuthModal} />
+    if (screen === 'confirmation')
+      return <Confirmation onBack={goBack} onTrackOrder={() => navigateTo('track')} onHome={goHome} />
+    if (screen === 'track')
+      return <TrackOrder onBack={goBack} />
+    if (screen === 'kitchen')
+      return <KitchenDisplay onBack={goHome} user={user} />
 
-  if (screen === 'contact')
-    return (
-      <ContactPage
-        onCartClick={() => navigateTo('cart')}
-        cartCount={cartCount}
-        onNav={navigateTo}
-      />
-    )
+    const navProps = { user, onLoginClick: () => setShowAuthModal(true), onLogout: handleLogout }
 
-  const catPages = ['jollof', 'waakye', 'plain-rice']
-  if (catPages.includes(screen)) {
+    if (screen === 'contact')
+      return (
+        <ContactPage
+          onCartClick={() => navigateTo('cart')}
+          cartCount={cartCount}
+          onNav={navigateTo}
+          activePage="contact"
+          {...navProps}
+        />
+      )
+
+    const catPages = ['jollof', 'waakye', 'plain-rice']
+    if (catPages.includes(screen)) {
+      return (
+        <CategoryPage
+          category={screen}
+          onAdd={addToCart}
+          onCartClick={() => navigateTo('cart')}
+          cartCount={cartCount}
+          onNav={navigateTo}
+          activePage={screen}
+          {...navProps}
+        />
+      )
+    }
+
     return (
-      <CategoryPage
-        category={screen}
+      <HomePage
         onAdd={addToCart}
         onCartClick={() => navigateTo('cart')}
         cartCount={cartCount}
         onNav={navigateTo}
+        activePage="home"
+        {...navProps}
       />
     )
   }
 
   return (
-    <HomePage
-      onAdd={addToCart}
-      onCartClick={() => navigateTo('cart')}
-      cartCount={cartCount}
-      onNav={navigateTo}
-    />
+    <>
+      {showAuthModal && (
+        <AuthModal
+          onClose={() => setShowAuthModal(false)}
+          onLoginSuccess={(u) => { setUserState(u); setShowAuthModal(false) }}
+        />
+      )}
+      {renderScreen()}
+    </>
   )
 }
 
