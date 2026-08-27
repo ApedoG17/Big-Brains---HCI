@@ -1,6 +1,6 @@
 import './Confirmation.css'
 
-function Confirmation({ onTrackOrder, onHome }) {
+function Confirmation({ onBack, onTrackOrder, onHome }) {
   return (
     <main className="confirmation-page">
       <section className="confirmation-card">
@@ -40,6 +40,14 @@ function Confirmation({ onTrackOrder, onHome }) {
         </div>
 
         <div className="confirmation-actions">
+          <button
+            type="button"
+            className="back-confirmation-button"
+            onClick={onBack}
+          >
+            ← Back
+          </button>
+
           <button
             type="button"
             className="track-order-button"

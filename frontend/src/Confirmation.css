@@ -95,7 +95,8 @@
 }
 
 .track-order-button,
-.home-button {
+.home-button,
+.back-confirmation-button {
   flex: 1;
   padding: 14px 18px;
   border-radius: 999px;
@@ -105,7 +106,8 @@
 }
 
 .track-order-button:hover,
-.home-button:hover {
+.home-button:hover,
+.back-confirmation-button:hover {
   transform: translateY(-1px);
 }
 
@@ -118,6 +120,12 @@
 .home-button {
   border: 1px solid #ddd5ce;
   background: white;
+  color: #1d1d1d;
+}
+
+.back-confirmation-button {
+  border: 1px solid #ddd5ce;
+  background: #f8f1eb;
   color: #1d1d1d;
 }
 

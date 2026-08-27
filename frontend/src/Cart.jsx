@@ -1,134 +1,144 @@
-import { useRef } from 'react'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
 import './Cart.css'
 
-function Cart({ items, updateQuantity, clearCart, onCheckout, isOpen, onClose }) {
-  const overlayRef = useRef(null)
-  const drawerRef = useRef(null)
+function Cart({ items, setItems, onBack, onCheckout }) {
 
-  // GSAP Animation
-  useGSAP(() => {
-    if (isOpen) {
-      // Open animation
-      overlayRef.current.style.display = 'block'
-      gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, ease: 'power2.out' })
-      gsap.to(drawerRef.current, { x: '0%', duration: 0.4, ease: 'power3.out' })
-    } else {
-      // Close animation
-      gsap.to(drawerRef.current, { x: '100%', duration: 0.3, ease: 'power2.in' })
-      gsap.to(overlayRef.current, { 
-        opacity: 0, 
-        duration: 0.3, 
-        ease: 'power2.in',
-        onComplete: () => {
-          if (overlayRef.current) overlayRef.current.style.display = 'none'
-        }
-      })
-    }
-  }, [isOpen])
-
-  // Swipe to close logic
-  let touchStartX = 0
-
-  const handleTouchStart = (e) => {
-    touchStartX = e.touches[0].clientX
+  const updateQuantity = (id, change) => {
+    setItems((currentItems) =>
+      currentItems
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: item.quantity + change }
+            : item,
+        )
+        .filter((item) => item.quantity > 0),
+    )
   }
 
-  const handleTouchEnd = (e) => {
-    const touchEndX = e.changedTouches[0].clientX
-    if (touchEndX - touchStartX > 50) {
-      onClose()
-    }
+  const updatePrice = (id, price) => {
+    setItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === id ? { ...item, price } : item,
+      ),
+    )
   }
 
-  const subtotal = items.reduce((total, item) => total + item.price * item.quantity, 0)
+  const clearCart = () => {
+    setItems([])
+  }
+
+  const subtotal = items.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0,
+  )
+
   const deliveryFee = items.length > 0 ? 10 : 0
   const total = subtotal + deliveryFee
 
   return (
-    <>
-      <div 
-        ref={overlayRef}
-        className="cart-overlay" 
-        onClick={onClose}
-        style={{ display: 'none', opacity: 0 }} 
-      />
-
-      <aside 
-        ref={drawerRef}
-        id="cartDrawer" 
-        className="cart-drawer"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        <div className="cart-header">
-          <div className="cart-header-left">
-            <span className="cart-eyebrow">Pepper Dem</span>
-            <h1>Your Cart</h1>
-            <button
-              type="button"
-              className="clear-cart-button"
-              onClick={clearCart}
-              disabled={items.length === 0}
-            >
-              Clear All
-            </button>
-          </div>
-          <button type="button" className="cart-close-btn" onClick={onClose} aria-label="Close Cart">
-            ✕
+    <main className="cart-page">
+      <div className="cart-header">
+        <div>
+          <button type="button" className="back-button" onClick={onBack}>
+            ← Back
           </button>
+          <span className="cart-eyebrow">Pepper Dem</span>
+          <h1>Your Cart</h1>
         </div>
 
-        {items.length === 0 ? (
-          <div className="empty-cart">
-            <h2>Your cart is empty</h2>
-            <p>Add some delicious meals to continue.</p>
-          </div>
-        ) : (
-          <>
-            <div className="cart-body">
-              {items.map((item) => (
-                <article className="cart-item" key={item.id}>
-                  <img src={item.image} alt={item.name} />
+        <button
+          type="button"
+          className="clear-cart-button"
+          onClick={clearCart}
+          disabled={items.length === 0}
+        >
+          Clear All
+        </button>
+      </div>
 
-                  <div className="cart-item-info">
-                    <h2>{item.name}</h2>
-                    <p>GH₵ {item.price.toFixed(2)}</p>
+      {items.length === 0 ? (
+        <div className="empty-cart">
+          <h2>Your cart is empty</h2>
+          <p>Add some delicious meals to continue.</p>
+        </div>
+      ) : (
+        <div className="cart-layout">
+          <section className="cart-items">
+            {items.map((item) => (
+              <article className="cart-item" key={item.id}>
+                <img src={item.image} alt={item.name} />
 
-                    <div className="quantity-controls">
-                      <button type="button" onClick={() => updateQuantity(item.id, -1)}>−</button>
-                      <span>{item.quantity}</span>
-                      <button type="button" onClick={() => updateQuantity(item.id, 1)}>+</button>
-                    </div>
+                <div className="cart-item-info">
+                  <h2>{item.name}</h2>
+                  <p>GH₵ {item.price.toFixed(2)}</p>
+
+                  <div className="price-options" aria-label={`Choose a price for ${item.name}`}>
+                    {item.priceOptions.map((price) => (
+                      <button
+                        key={price}
+                        type="button"
+                        className={item.price === price ? 'price-option active' : 'price-option'}
+                        onClick={() => updatePrice(item.id, price)}
+                      >
+                        GH₵ {price.toFixed(2)}
+                      </button>
+                    ))}
                   </div>
-                  <strong className="cart-item-total">GH₵ {(item.price * item.quantity).toFixed(2)}</strong>
-                </article>
-              ))}
+
+                  <div className="quantity-controls">
+                    <button
+                      type="button"
+                      onClick={() => updateQuantity(item.id, -1)}
+                    >
+                      −
+                    </button>
+
+                    <span>{item.quantity}</span>
+
+                    <button
+                      type="button"
+                      onClick={() => updateQuantity(item.id, 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <strong>
+                  GH₵ {(item.price * item.quantity).toFixed(2)}
+                </strong>
+              </article>
+            ))}
+          </section>
+
+          <aside className="cart-summary">
+            <h2>Order Summary</h2>
+
+            <div className="summary-row">
+              <span>Subtotal</span>
+              <span>GH₵ {subtotal.toFixed(2)}</span>
             </div>
 
-            <div className="cart-footer">
-              <div className="summary-row">
-                <span>Subtotal</span>
-                <span>GH₵ {subtotal.toFixed(2)}</span>
-              </div>
-              <div className="summary-row">
-                <span>Delivery fee</span>
-                <span>GH₵ {deliveryFee.toFixed(2)}</span>
-              </div>
-              <div className="summary-total">
-                <span>Total</span>
-                <strong>GH₵ {total.toFixed(2)}</strong>
-              </div>
-
-              <button type="button" className="checkout-button" onClick={onCheckout}>
-                Proceed to Checkout
-              </button>
+            <div className="summary-row">
+              <span>Delivery fee</span>
+              <span>GH₵ {deliveryFee.toFixed(2)}</span>
             </div>
-          </>
-        )}
-      </aside>
-    </>
+
+            <div className="summary-total">
+              <span>Total</span>
+              <strong>GH₵ {total.toFixed(2)}</strong>
+            </div>
+
+            <button
+              type="button"
+              className="checkout-button"
+              onClick={onCheckout}
+            >
+              Proceed to Checkout
+            </button>
+          </aside>
+        </div>
+      )}
+    </main>
   )
 }
 

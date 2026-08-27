@@ -1,11 +1,11 @@
 import './TrackOrder.css'
 
-function TrackOrder({ onHome }) {
+function TrackOrder({ onBack }) {
   return (
     <main className="track-page">
       <div className="track-header">
-        <button type="button" className="back-home-button" onClick={onHome}>
-          ← Back to home
+        <button type="button" className="back-home-button" onClick={onBack}>
+          ← Back
         </button>
 
         <span className="track-eyebrow">Pepper Dem</span>

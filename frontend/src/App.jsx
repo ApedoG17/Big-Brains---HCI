@@ -1,9 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import { useState } from 'react'
 import './App.css'
-
-gsap.registerPlugin(ScrollToPlugin)
 import Cart from './Cart'
 import Checkout from './Checkout'
 import Confirmation from './Confirmation'
@@ -12,14 +8,8 @@ import TrackOrder from './TrackOrder'
 // ─── Image Imports ────────────────────────────────────────────────────────────
 import imgHero from './assets/plain rice combo.jpeg'
 import imgJollofCombo from './assets/jollof combo.jpeg'
-import imgJollof1 from './assets/jollof.jpg'
-import imgJollof2 from './assets/jollof 2.jpg'
-import imgJollofOrdinary from './assets/jollof ordinary.jpg'
 import imgWaakyeCombo from './assets/waakye combo.jpeg'
-import imgWaakye1 from './assets/waakye.jpg'
 import imgPlainRiceCombo from './assets/plain rice combo.jpeg'
-import imgPlainRice1 from './assets/plain rice.jpg'
-import imgPlainRice2 from './assets/hero food.jpg'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -28,26 +18,9 @@ const jollofDishes = [
     id: 1,
     name: 'Jollof',
     badge: 'SPECIAL',
-    price: 75.00,
+    priceOptions: [75, 50],
     desc: 'A full Jollof platter with spaghetti, mixed salad, egg, sausage and plantain, served with both fish and meat.',
     image: imgJollofCombo,
-  },
-  {
-    id: 2,
-    name: 'Jollof',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'Delicious Ghana-style Jollof rice with spaghetti, salad, egg and your choice of meat, fish or chicken.',
-    image: imgJollof2,
-  },
-  {
-    id: 3,
-    name: 'Jollof',
-    badge: 'STANDARD',
-    badgeType: 'standard',
-    price: 25.00,
-    desc: 'Satisfactory Jollof rice with spaghetti, salad, egg and your choice of sausage or egg.',
-    image: imgJollofOrdinary,
   },
 ]
 
@@ -56,17 +29,9 @@ const waakyeDishes = [
     id: 4,
     name: 'Waakye',
     badge: 'SPECIAL',
-    price: 75.00,
+    priceOptions: [75, 50],
     desc: 'Premium waakye loaded with spaghetti, salad, gari, egg, wele, sausage and ripe plantain, plus your protein.',
     image: imgWaakyeCombo,
-  },
-  {
-    id: 5,
-    name: 'Waakye',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'A satisfying waakye meal with spaghetti, salad, gari, egg and wele plus meat, fish or chicken.',
-    image: imgWaakye1,
   },
 ]
 
@@ -75,69 +40,16 @@ const plainRiceDishes = [
     id: 6,
     name: 'Plain Rice',
     badge: 'SPECIAL',
-    price: 75.00,
+    priceOptions: [75, 50],
     desc: 'Loaded plain rice with spaghetti, egg, sausage and plantain, paired with both fish and chicken.',
     image: imgPlainRiceCombo,
-  },
-  {
-    id: 7,
-    name: 'Plain Rice',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'Soft, fluffy plain rice with spaghetti, salad, egg and your choice of meat, fish or chicken.',
-    image: imgPlainRice1,
   },
 ]
 
 const allDishes = [
-  {
-    id: 101,
-    name: 'Jollof',
-    badge: 'SPECIAL',
-    price: 75.00,
-    desc: 'A full Jollof platter with spaghetti, mixed salad, egg, sausage and plantain, served with both fish and meat.',
-    image: imgJollofCombo,
-  },
-  {
-    id: 102,
-    name: 'Jollof',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'Delicious Ghana-style Jollof rice with spaghetti, salad, egg and your choice of meat, fish or chicken.',
-    image: imgJollof2,
-  },
-  {
-    id: 103,
-    name: 'Waakye',
-    badge: 'SPECIAL',
-    price: 75.00,
-    desc: 'Premium waakye loaded with spaghetti, salad, gari, egg, wele, sausage and ripe plantain, plus your protein.',
-    image: imgWaakyeCombo,
-  },
-  {
-    id: 104,
-    name: 'Waakye',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'A satisfying waakye meal with spaghetti, salad, gari, egg and wele plus meat, fish or chicken.',
-    image: imgWaakye1,
-  },
-  {
-    id: 105,
-    name: 'Plain Rice',
-    badge: 'SPECIAL',
-    price: 75.00,
-    desc: 'Loaded plain rice with spaghetti, egg, sausage and plantain, paired with both fish and chicken.',
-    image: imgPlainRiceCombo,
-  },
-  {
-    id: 106,
-    name: 'Plain Rice',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'Soft, fluffy plain rice with spaghetti, salad, egg and your choice of meat, fish or chicken.',
-    image: imgPlainRice2,
-  },
+  ...jollofDishes,
+  ...waakyeDishes,
+  ...plainRiceDishes,
 ]
 
 // ─── Shared Components ────────────────────────────────────────────────────────
@@ -151,7 +63,7 @@ function Logo({ onClick }) {
   )
 }
 
-function Navbar({ cartCount, onCartClick, onNavClick, activePage, cartIconRef }) {
+function Navbar({ cartCount, onCartClick, onNavClick, activePage }) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
@@ -177,7 +89,6 @@ function Navbar({ cartCount, onCartClick, onNavClick, activePage, cartIconRef })
           <button
             type="button"
             className="cart-btn"
-            ref={cartIconRef}
             onClick={onCartClick}
             aria-label={`Cart with ${cartCount} items`}
           >
@@ -226,7 +137,7 @@ function DishCard({ dish, onAdd }) {
       <div className="dish-card-body">
         <div className="dish-card-top">
           <h3 className="dish-card-name">{dish.name}</h3>
-          <span className="dish-card-price">GH₵ {dish.price.toFixed(2)}</span>
+          <span className="dish-card-price">Choose price in cart</span>
         </div>
         <p className="dish-card-desc">{dish.desc}</p>
         <button
@@ -308,25 +219,30 @@ function Footer({ onNav }) {
 
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
-const menuTabs = [
-  { id: 'jollof', label: 'Jollof' },
-  { id: 'waakye', label: 'Waakye' },
-  { id: 'plain-rice', label: 'Plain Rice' },
-]
+const menuTabs = ['All', 'Jollof', 'Waakye', 'Plain Rice', 'Drinks']
 
-function HomePage({ onAdd, onCartClick, cartCount, onNav, cartIconRef }) {
-  const handleScrollTo = (id) => {
-    gsap.to(window, { duration: 0.6, scrollTo: { y: `#${id}`, offsetY: 70 }, ease: "power2.out" })
+function getTabDishes(tab) {
+  switch (tab) {
+    case 'Jollof': return jollofDishes
+    case 'Waakye': return waakyeDishes
+    case 'Plain Rice': return plainRiceDishes
+    default: return allDishes
   }
+}
+
+function HomePage({ onAdd, onCartClick, cartCount, onNav }) {
+  const [activeTab, setActiveTab] = useState('All')
+
+  const dishes = getTabDishes(activeTab)
 
   return (
     <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="home" cartIconRef={cartIconRef} />
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="home" />
 
       {/* Hero */}
       <section className="hero-section">
         <div className="hero-content">
-          <span className="hero-badge">Ghana's favourite kitchen</span>
+          <span className="hero-badge">🇬🇭 Ghana's favourite kitchen</span>
           <h1 className="hero-title">
             Hot Jollof, Waakye<br />
             &amp; Plain Rice —<br />
@@ -384,42 +300,27 @@ function HomePage({ onAdd, onCartClick, cartCount, onNav, cartIconRef }) {
         <div className="tab-row">
           {menuTabs.map((tab) => (
             <button
-              key={tab.id}
+              key={tab}
               type="button"
-              className="tab-btn"
-              onClick={() => handleScrollTo(tab.id)}
+              className={`tab-btn ${activeTab === tab ? 'tab-active' : ''}`}
+              onClick={() => setActiveTab(tab)}
             >
-              {tab.label}
+              {tab}
             </button>
           ))}
         </div>
 
-        <div id="jollof" style={{ scrollMarginTop: '80px', marginBottom: '40px' }}>
-          <h3 className="section-eyebrow" style={{ textAlign: 'left', marginBottom: '16px' }}>Jollof</h3>
+        {activeTab === 'Drinks' ? (
+          <div className="empty-state">
+            <p>🥤 Drinks coming soon!</p>
+          </div>
+        ) : (
           <div className="dish-grid">
-            {jollofDishes.map((dish) => (
+            {dishes.map((dish) => (
               <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
             ))}
           </div>
-        </div>
-
-        <div id="waakye" style={{ scrollMarginTop: '80px', marginBottom: '40px' }}>
-          <h3 className="section-eyebrow" style={{ textAlign: 'left', marginBottom: '16px' }}>Waakye</h3>
-          <div className="dish-grid">
-            {waakyeDishes.map((dish) => (
-              <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
-            ))}
-          </div>
-        </div>
-
-        <div id="plain-rice" style={{ scrollMarginTop: '80px', marginBottom: '40px' }}>
-          <h3 className="section-eyebrow" style={{ textAlign: 'left', marginBottom: '16px' }}>Plain Rice</h3>
-          <div className="dish-grid">
-            {plainRiceDishes.map((dish) => (
-              <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
-            ))}
-          </div>
-        </div>
+        )}
       </section>
 
       {/* Features */}
@@ -473,8 +374,7 @@ const categoryConfig = {
     featured: {
       badge: 'SPECIAL OFFER',
       name: 'Jollof Platter',
-      price: 75.00,
-      oldPrice: 80.00,
+      priceOptions: [75, 50],
       desc: 'A full Jollof platter with spaghetti, mixed salad, egg, sausage and plantain, served with both fish and meat — our most loaded plate.',
       image: imgJollofCombo,
     },
@@ -486,8 +386,7 @@ const categoryConfig = {
     featured: {
       badge: 'SPECIAL OFFER',
       name: 'Waakye Combo',
-      price: 75.00,
-      oldPrice: 90.00,
+      priceOptions: [75, 50],
       desc: 'A premium waakye combo loaded with spaghetti, salad, gari, wele, sausage and ripe plantain, plus your choice of meat, fish or chicken.',
       image: imgWaakyeCombo,
     },
@@ -499,8 +398,7 @@ const categoryConfig = {
     featured: {
       badge: 'SPECIAL OFFER',
       name: 'Plain Rice Special',
-      price: 75.00,
-      oldPrice: 90.00,
+      priceOptions: [75, 50],
       desc: 'Loaded plain rice with spaghetti, mixed salad, egg, sausage and plantain, paired with fish and chicken for a complete, indulgent meal.',
       image: imgPlainRiceCombo,
     },
@@ -509,13 +407,13 @@ const categoryConfig = {
   },
 }
 
-function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav, cartIconRef }) {
+function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav }) {
   const config = categoryConfig[category]
   const [featuredIdx, setFeaturedIdx] = useState(0)
 
   return (
     <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={category} cartIconRef={cartIconRef} />
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={category} />
 
       {/* Category Header */}
       <section className="cat-header">
@@ -530,8 +428,7 @@ function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav, cartIcon
             <span className="featured-badge">{config.featured.badge}</span>
             <h2 className="featured-name">{config.featured.name}</h2>
             <div className="featured-pricing">
-              <span className="featured-price">GH₵ {config.featured.price.toFixed(2)}</span>
-              <span className="featured-old-price">GH₵ {config.featured.oldPrice.toFixed(2)}</span>
+              <span className="featured-price">Choose price in cart</span>
             </div>
             <p className="featured-desc">{config.featured.desc}</p>
             <button type="button" className="btn-primary" onClick={() => onAdd({ ...config.featured, id: `feat-${category}` })}>
@@ -584,10 +481,10 @@ function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav, cartIcon
 
 // ─── Contact Page ────────────────────────────────────────────────────────────
 
-function ContactPage({ onCartClick, cartCount, onNav, cartIconRef }) {
+function ContactPage({ onCartClick, cartCount, onNav }) {
   return (
     <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="contact" cartIconRef={cartIconRef} />
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="contact" />
 
       <div className="contact-split">
 
@@ -733,47 +630,24 @@ function ContactPage({ onCartClick, cartCount, onNav, cartIconRef }) {
 
 function App() {
   const [screen, setScreen] = useState('home')
+  const [, setScreenHistory] = useState([])
   const [cartItems, setCartItems] = useState([])
-  const [isCartOpen, setIsCartOpen] = useState(false)
-  
-  const cartIconRef = useRef(null)
-  const prevCartCount = useRef(0)
-
-  // 1. Rehydrate on Page Load
-  useEffect(() => {
-    const savedCart = localStorage.getItem('pepperdem_cart_state')
-    if (savedCart) {
-      try {
-        setCartItems(JSON.parse(savedCart))
-      } catch (e) {
-        console.error('Failed to parse cart', e)
-      }
-    }
-  }, [])
-
-  // 2. Sync on Every Update
-  useEffect(() => {
-    localStorage.setItem('pepperdem_cart_state', JSON.stringify(cartItems))
-  }, [cartItems])
 
   const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0)
 
-  // Add GSAP Bounce Micro-Interaction
-  useEffect(() => {
-    if (cartCount > prevCartCount.current && cartIconRef.current) {
-      gsap.fromTo(cartIconRef.current, 
-        { scale: 1 }, 
-        { 
-            scale: 1.15, 
-            duration: 0.15, 
-            yoyo: true, 
-            repeat: 1, 
-            ease: "power1.inOut" 
-        }
-      )
-    }
-    prevCartCount.current = cartCount
-  }, [cartCount])
+  const navigateTo = (nextScreen) => {
+    setScreenHistory((previous) => [...previous, screen])
+    setScreen(nextScreen)
+  }
+
+  const goBack = () => {
+    setScreenHistory((previous) => {
+      if (previous.length === 0) return previous
+
+      setScreen(previous[previous.length - 1])
+      return previous.slice(0, -1)
+    })
+  }
 
   const addToCart = (item) => {
     setCartItems((prev) => {
@@ -783,86 +657,54 @@ function App() {
           c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c
         )
       }
-      return [...prev, { ...item, quantity: 1 }]
+      return [...prev, { ...item, price: item.priceOptions[0], quantity: 1 }]
     })
-    setIsCartOpen(true)
+    navigateTo('cart')
   }
 
-  const updateQuantity = (id, change) => {
-    setCartItems((prev) =>
-      prev
-        .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + change } : item
-        )
-        .filter((item) => item.quantity > 0)
-    )
+  const goHome = () => {
+    setScreen('home')
+    setScreenHistory([])
   }
 
-  const clearCart = () => setCartItems([])
+  if (screen === 'cart')
+    return <Cart items={cartItems} setItems={setCartItems} onBack={goBack} onCheckout={() => navigateTo('checkout')} />
+  if (screen === 'checkout')
+    return <Checkout onBack={goBack} onPlaceOrder={() => navigateTo('confirmation')} />
+  if (screen === 'confirmation')
+    return <Confirmation onBack={goBack} onTrackOrder={() => navigateTo('track')} onHome={goHome} />
+  if (screen === 'track')
+    return <TrackOrder onBack={goBack} />
 
-  const goHome = () => setScreen('home')
-  
-  const openCart = () => setIsCartOpen(true)
-  const closeCart = () => setIsCartOpen(false)
-
-  const renderScreen = () => {
-    if (screen === 'checkout') {
-      return <Checkout onBack={() => setScreen('home')} onPlaceOrder={() => { clearCart(); setScreen('confirmation') }} />
-    }
-    if (screen === 'confirmation') {
-      return <Confirmation onTrackOrder={() => setScreen('track')} onHome={goHome} />
-    }
-    if (screen === 'track') {
-      return <TrackOrder onHome={goHome} />
-    }
-    if (screen === 'contact') {
-      return (
-        <ContactPage
-          onCartClick={openCart}
-          cartCount={cartCount}
-          onNav={(page) => setScreen(page)}
-          cartIconRef={cartIconRef}
-        />
-      )
-    }
-    
-    const catPages = ['jollof', 'waakye', 'plain-rice']
-    if (catPages.includes(screen)) {
-      return (
-        <CategoryPage
-          category={screen}
-          onAdd={addToCart}
-          onCartClick={openCart}
-          cartCount={cartCount}
-          onNav={(page) => setScreen(page)}
-          cartIconRef={cartIconRef}
-        />
-      )
-    }
-
+  if (screen === 'contact')
     return (
-      <HomePage
-        onAdd={addToCart}
-        onCartClick={openCart}
+      <ContactPage
+        onCartClick={() => navigateTo('cart')}
         cartCount={cartCount}
-        onNav={(page) => setScreen(page)}
-        cartIconRef={cartIconRef}
+        onNav={navigateTo}
+      />
+    )
+
+  const catPages = ['jollof', 'waakye', 'plain-rice']
+  if (catPages.includes(screen)) {
+    return (
+      <CategoryPage
+        category={screen}
+        onAdd={addToCart}
+        onCartClick={() => navigateTo('cart')}
+        cartCount={cartCount}
+        onNav={navigateTo}
       />
     )
   }
 
   return (
-    <>
-      {renderScreen()}
-      <Cart 
-        items={cartItems} 
-        updateQuantity={updateQuantity}
-        clearCart={clearCart}
-        onCheckout={() => { closeCart(); setScreen('checkout') }}
-        isOpen={isCartOpen}
-        onClose={closeCart}
-      />
-    </>
+    <HomePage
+      onAdd={addToCart}
+      onCartClick={() => navigateTo('cart')}
+      cartCount={cartCount}
+      onNav={navigateTo}
+    />
   )
 }
 
