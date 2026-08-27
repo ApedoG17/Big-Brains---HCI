@@ -242,7 +242,7 @@ function Footer({ onNav }) {
 
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
-function HomePage({ onAdd, onCartClick, cartCount, onNav, activePage, user, onLoginClick, onLogout }) {
+function HomePage({ onAdd, onCartClick, cartCount, onNav }) {
   return (
     <div className="page page-transition">
       <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={activePage} user={user} onLoginClick={onLoginClick} onLogout={onLogout} />
