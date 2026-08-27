@@ -12,6 +12,20 @@
   margin-bottom: 30px;
 }
 
+.cart-header .back-button {
+  display: block;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: #bb4d28;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cart-header .back-button {
+  margin-bottom: 12px;
+}
+
 .cart-eyebrow {
   color: #bb4d28;
   font-size: 0.75rem;
@@ -80,6 +94,29 @@
   margin: 0 0 14px;
   color: #666;
   font-size: 0.9rem;
+}
+
+.price-options {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.price-option {
+  padding: 6px 10px;
+  border: 1px solid #ddd5ce;
+  border-radius: 999px;
+  background: #fff;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.price-option.active {
+  border-color: #bb4d28;
+  background: #bb4d28;
+  color: #fff;
 }
 
 .quantity-controls {

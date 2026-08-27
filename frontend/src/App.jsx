@@ -8,14 +8,8 @@ import TrackOrder from './TrackOrder'
 // ─── Image Imports ────────────────────────────────────────────────────────────
 import imgHero from './assets/plain rice combo.jpeg'
 import imgJollofCombo from './assets/jollof combo.jpeg'
-import imgJollof1 from './assets/jollof.jpg'
-import imgJollof2 from './assets/jollof 2.jpg'
-import imgJollofOrdinary from './assets/jollof ordinary.jpg'
 import imgWaakyeCombo from './assets/waakye combo.jpeg'
-import imgWaakye1 from './assets/waakye.jpg'
 import imgPlainRiceCombo from './assets/plain rice combo.jpeg'
-import imgPlainRice1 from './assets/plain rice.jpg'
-import imgPlainRice2 from './assets/hero food.jpg'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -24,26 +18,9 @@ const jollofDishes = [
     id: 1,
     name: 'Jollof',
     badge: 'SPECIAL',
-    price: 75.00,
+    priceOptions: [75, 50],
     desc: 'A full Jollof platter with spaghetti, mixed salad, egg, sausage and plantain, served with both fish and meat.',
     image: imgJollofCombo,
-  },
-  {
-    id: 2,
-    name: 'Jollof',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'Delicious Ghana-style Jollof rice with spaghetti, salad, egg and your choice of meat, fish or chicken.',
-    image: imgJollof2,
-  },
-  {
-    id: 3,
-    name: 'Jollof',
-    badge: 'STANDARD',
-    badgeType: 'standard',
-    price: 25.00,
-    desc: 'Satisfactory Jollof rice with spaghetti, salad, egg and your choice of sausage or egg.',
-    image: imgJollofOrdinary,
   },
 ]
 
@@ -52,17 +29,9 @@ const waakyeDishes = [
     id: 4,
     name: 'Waakye',
     badge: 'SPECIAL',
-    price: 75.00,
+    priceOptions: [75, 50],
     desc: 'Premium waakye loaded with spaghetti, salad, gari, egg, wele, sausage and ripe plantain, plus your protein.',
     image: imgWaakyeCombo,
-  },
-  {
-    id: 5,
-    name: 'Waakye',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'A satisfying waakye meal with spaghetti, salad, gari, egg and wele plus meat, fish or chicken.',
-    image: imgWaakye1,
   },
 ]
 
@@ -71,69 +40,16 @@ const plainRiceDishes = [
     id: 6,
     name: 'Plain Rice',
     badge: 'SPECIAL',
-    price: 75.00,
+    priceOptions: [75, 50],
     desc: 'Loaded plain rice with spaghetti, egg, sausage and plantain, paired with both fish and chicken.',
     image: imgPlainRiceCombo,
-  },
-  {
-    id: 7,
-    name: 'Plain Rice',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'Soft, fluffy plain rice with spaghetti, salad, egg and your choice of meat, fish or chicken.',
-    image: imgPlainRice1,
   },
 ]
 
 const allDishes = [
-  {
-    id: 101,
-    name: 'Jollof',
-    badge: 'SPECIAL',
-    price: 75.00,
-    desc: 'A full Jollof platter with spaghetti, mixed salad, egg, sausage and plantain, served with both fish and meat.',
-    image: imgJollofCombo,
-  },
-  {
-    id: 102,
-    name: 'Jollof',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'Delicious Ghana-style Jollof rice with spaghetti, salad, egg and your choice of meat, fish or chicken.',
-    image: imgJollof2,
-  },
-  {
-    id: 103,
-    name: 'Waakye',
-    badge: 'SPECIAL',
-    price: 75.00,
-    desc: 'Premium waakye loaded with spaghetti, salad, gari, egg, wele, sausage and ripe plantain, plus your protein.',
-    image: imgWaakyeCombo,
-  },
-  {
-    id: 104,
-    name: 'Waakye',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'A satisfying waakye meal with spaghetti, salad, gari, egg and wele plus meat, fish or chicken.',
-    image: imgWaakye1,
-  },
-  {
-    id: 105,
-    name: 'Plain Rice',
-    badge: 'SPECIAL',
-    price: 75.00,
-    desc: 'Loaded plain rice with spaghetti, egg, sausage and plantain, paired with both fish and chicken.',
-    image: imgPlainRiceCombo,
-  },
-  {
-    id: 106,
-    name: 'Plain Rice',
-    badge: 'SPECIAL',
-    price: 50.00,
-    desc: 'Soft, fluffy plain rice with spaghetti, salad, egg and your choice of meat, fish or chicken.',
-    image: imgPlainRice2,
-  },
+  ...jollofDishes,
+  ...waakyeDishes,
+  ...plainRiceDishes,
 ]
 
 // ─── Shared Components ────────────────────────────────────────────────────────
@@ -221,7 +137,7 @@ function DishCard({ dish, onAdd }) {
       <div className="dish-card-body">
         <div className="dish-card-top">
           <h3 className="dish-card-name">{dish.name}</h3>
-          <span className="dish-card-price">GH₵ {dish.price.toFixed(2)}</span>
+          <span className="dish-card-price">Choose price in cart</span>
         </div>
         <p className="dish-card-desc">{dish.desc}</p>
         <button
@@ -458,8 +374,7 @@ const categoryConfig = {
     featured: {
       badge: 'SPECIAL OFFER',
       name: 'Jollof Platter',
-      price: 75.00,
-      oldPrice: 80.00,
+      priceOptions: [75, 50],
       desc: 'A full Jollof platter with spaghetti, mixed salad, egg, sausage and plantain, served with both fish and meat — our most loaded plate.',
       image: imgJollofCombo,
     },
@@ -471,8 +386,7 @@ const categoryConfig = {
     featured: {
       badge: 'SPECIAL OFFER',
       name: 'Waakye Combo',
-      price: 75.00,
-      oldPrice: 90.00,
+      priceOptions: [75, 50],
       desc: 'A premium waakye combo loaded with spaghetti, salad, gari, wele, sausage and ripe plantain, plus your choice of meat, fish or chicken.',
       image: imgWaakyeCombo,
     },
@@ -484,8 +398,7 @@ const categoryConfig = {
     featured: {
       badge: 'SPECIAL OFFER',
       name: 'Plain Rice Special',
-      price: 75.00,
-      oldPrice: 90.00,
+      priceOptions: [75, 50],
       desc: 'Loaded plain rice with spaghetti, mixed salad, egg, sausage and plantain, paired with fish and chicken for a complete, indulgent meal.',
       image: imgPlainRiceCombo,
     },
@@ -515,8 +428,7 @@ function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav }) {
             <span className="featured-badge">{config.featured.badge}</span>
             <h2 className="featured-name">{config.featured.name}</h2>
             <div className="featured-pricing">
-              <span className="featured-price">GH₵ {config.featured.price.toFixed(2)}</span>
-              <span className="featured-old-price">GH₵ {config.featured.oldPrice.toFixed(2)}</span>
+              <span className="featured-price">Choose price in cart</span>
             </div>
             <p className="featured-desc">{config.featured.desc}</p>
             <button type="button" className="btn-primary" onClick={() => onAdd({ ...config.featured, id: `feat-${category}` })}>
@@ -718,9 +630,24 @@ function ContactPage({ onCartClick, cartCount, onNav }) {
 
 function App() {
   const [screen, setScreen] = useState('home')
+  const [, setScreenHistory] = useState([])
   const [cartItems, setCartItems] = useState([])
 
   const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0)
+
+  const navigateTo = (nextScreen) => {
+    setScreenHistory((previous) => [...previous, screen])
+    setScreen(nextScreen)
+  }
+
+  const goBack = () => {
+    setScreenHistory((previous) => {
+      if (previous.length === 0) return previous
+
+      setScreen(previous[previous.length - 1])
+      return previous.slice(0, -1)
+    })
+  }
 
   const addToCart = (item) => {
     setCartItems((prev) => {
@@ -730,28 +657,31 @@ function App() {
           c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c
         )
       }
-      return [...prev, { ...item, quantity: 1 }]
+      return [...prev, { ...item, price: item.priceOptions[0], quantity: 1 }]
     })
-    setScreen('cart')
+    navigateTo('cart')
   }
 
-  const goHome = () => setScreen('home')
+  const goHome = () => {
+    setScreen('home')
+    setScreenHistory([])
+  }
 
   if (screen === 'cart')
-    return <Cart items={cartItems} setItems={setCartItems} onCheckout={() => setScreen('checkout')} />
+    return <Cart items={cartItems} setItems={setCartItems} onBack={goBack} onCheckout={() => navigateTo('checkout')} />
   if (screen === 'checkout')
-    return <Checkout onBack={() => setScreen('cart')} onPlaceOrder={() => setScreen('confirmation')} />
+    return <Checkout onBack={goBack} onPlaceOrder={() => navigateTo('confirmation')} />
   if (screen === 'confirmation')
-    return <Confirmation onTrackOrder={() => setScreen('track')} onHome={goHome} />
+    return <Confirmation onBack={goBack} onTrackOrder={() => navigateTo('track')} onHome={goHome} />
   if (screen === 'track')
-    return <TrackOrder onHome={goHome} />
+    return <TrackOrder onBack={goBack} />
 
   if (screen === 'contact')
     return (
       <ContactPage
-        onCartClick={() => setScreen('cart')}
+        onCartClick={() => navigateTo('cart')}
         cartCount={cartCount}
-        onNav={(page) => setScreen(page)}
+        onNav={navigateTo}
       />
     )
 
@@ -761,9 +691,9 @@ function App() {
       <CategoryPage
         category={screen}
         onAdd={addToCart}
-        onCartClick={() => setScreen('cart')}
+        onCartClick={() => navigateTo('cart')}
         cartCount={cartCount}
-        onNav={(page) => setScreen(page)}
+        onNav={navigateTo}
       />
     )
   }
@@ -771,9 +701,9 @@ function App() {
   return (
     <HomePage
       onAdd={addToCart}
-      onCartClick={() => setScreen('cart')}
+      onCartClick={() => navigateTo('cart')}
       cartCount={cartCount}
-      onNav={(page) => setScreen(page)}
+      onNav={navigateTo}
     />
   )
 }

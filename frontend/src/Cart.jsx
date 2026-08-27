@@ -1,27 +1,6 @@
-import { useState } from 'react'
 import './Cart.css'
 
-const initialItems = [
-  {
-    id: 1,
-    name: 'Jollof Platter',
-    price: 50,
-    quantity: 1,
-    image:
-      'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 2,
-    name: 'Waakye Combo',
-    price: 45,
-    quantity: 1,
-    image:
-      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
-  },
-]
-
-function Cart({ onCheckout }) {
-  const [items, setItems] = useState(initialItems)
+function Cart({ items, setItems, onBack, onCheckout }) {
 
   const updateQuantity = (id, change) => {
     setItems((currentItems) =>
@@ -32,6 +11,14 @@ function Cart({ onCheckout }) {
             : item,
         )
         .filter((item) => item.quantity > 0),
+    )
+  }
+
+  const updatePrice = (id, price) => {
+    setItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === id ? { ...item, price } : item,
+      ),
     )
   }
 
@@ -51,6 +38,9 @@ function Cart({ onCheckout }) {
     <main className="cart-page">
       <div className="cart-header">
         <div>
+          <button type="button" className="back-button" onClick={onBack}>
+            ← Back
+          </button>
           <span className="cart-eyebrow">Pepper Dem</span>
           <h1>Your Cart</h1>
         </div>
@@ -80,6 +70,19 @@ function Cart({ onCheckout }) {
                 <div className="cart-item-info">
                   <h2>{item.name}</h2>
                   <p>GH₵ {item.price.toFixed(2)}</p>
+
+                  <div className="price-options" aria-label={`Choose a price for ${item.name}`}>
+                    {item.priceOptions.map((price) => (
+                      <button
+                        key={price}
+                        type="button"
+                        className={item.price === price ? 'price-option active' : 'price-option'}
+                        onClick={() => updatePrice(item.id, price)}
+                      >
+                        GH₵ {price.toFixed(2)}
+                      </button>
+                    ))}
+                  </div>
 
                   <div className="quantity-controls">
                     <button
