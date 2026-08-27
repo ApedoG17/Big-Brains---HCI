@@ -1,5 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import './App.css'
+
+gsap.registerPlugin(ScrollToPlugin)
 import Cart from './Cart'
 import Checkout from './Checkout'
 import Confirmation from './Confirmation'
@@ -147,7 +151,7 @@ function Logo({ onClick }) {
   )
 }
 
-function Navbar({ cartCount, onCartClick, onNavClick, activePage }) {
+function Navbar({ cartCount, onCartClick, onNavClick, activePage, cartIconRef }) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
@@ -173,6 +177,7 @@ function Navbar({ cartCount, onCartClick, onNavClick, activePage }) {
           <button
             type="button"
             className="cart-btn"
+            ref={cartIconRef}
             onClick={onCartClick}
             aria-label={`Cart with ${cartCount} items`}
           >
@@ -303,30 +308,25 @@ function Footer({ onNav }) {
 
 // ─── Home Page ────────────────────────────────────────────────────────────────
 
-const menuTabs = ['All', 'Jollof', 'Waakye', 'Plain Rice', 'Drinks']
+const menuTabs = [
+  { id: 'jollof', label: 'Jollof' },
+  { id: 'waakye', label: 'Waakye' },
+  { id: 'plain-rice', label: 'Plain Rice' },
+]
 
-function getTabDishes(tab) {
-  switch (tab) {
-    case 'Jollof': return jollofDishes
-    case 'Waakye': return waakyeDishes
-    case 'Plain Rice': return plainRiceDishes
-    default: return allDishes
+function HomePage({ onAdd, onCartClick, cartCount, onNav, cartIconRef }) {
+  const handleScrollTo = (id) => {
+    gsap.to(window, { duration: 0.6, scrollTo: { y: `#${id}`, offsetY: 70 }, ease: "power2.out" })
   }
-}
-
-function HomePage({ onAdd, onCartClick, cartCount, onNav }) {
-  const [activeTab, setActiveTab] = useState('All')
-
-  const dishes = getTabDishes(activeTab)
 
   return (
     <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="home" />
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="home" cartIconRef={cartIconRef} />
 
       {/* Hero */}
       <section className="hero-section">
         <div className="hero-content">
-          <span className="hero-badge">🇬🇭 Ghana's favourite kitchen</span>
+          <span className="hero-badge">Ghana's favourite kitchen</span>
           <h1 className="hero-title">
             Hot Jollof, Waakye<br />
             &amp; Plain Rice —<br />
@@ -384,27 +384,42 @@ function HomePage({ onAdd, onCartClick, cartCount, onNav }) {
         <div className="tab-row">
           {menuTabs.map((tab) => (
             <button
-              key={tab}
+              key={tab.id}
               type="button"
-              className={`tab-btn ${activeTab === tab ? 'tab-active' : ''}`}
-              onClick={() => setActiveTab(tab)}
+              className="tab-btn"
+              onClick={() => handleScrollTo(tab.id)}
             >
-              {tab}
+              {tab.label}
             </button>
           ))}
         </div>
 
-        {activeTab === 'Drinks' ? (
-          <div className="empty-state">
-            <p>🥤 Drinks coming soon!</p>
-          </div>
-        ) : (
+        <div id="jollof" style={{ scrollMarginTop: '80px', marginBottom: '40px' }}>
+          <h3 className="section-eyebrow" style={{ textAlign: 'left', marginBottom: '16px' }}>Jollof</h3>
           <div className="dish-grid">
-            {dishes.map((dish) => (
+            {jollofDishes.map((dish) => (
               <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
             ))}
           </div>
-        )}
+        </div>
+
+        <div id="waakye" style={{ scrollMarginTop: '80px', marginBottom: '40px' }}>
+          <h3 className="section-eyebrow" style={{ textAlign: 'left', marginBottom: '16px' }}>Waakye</h3>
+          <div className="dish-grid">
+            {waakyeDishes.map((dish) => (
+              <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
+            ))}
+          </div>
+        </div>
+
+        <div id="plain-rice" style={{ scrollMarginTop: '80px', marginBottom: '40px' }}>
+          <h3 className="section-eyebrow" style={{ textAlign: 'left', marginBottom: '16px' }}>Plain Rice</h3>
+          <div className="dish-grid">
+            {plainRiceDishes.map((dish) => (
+              <DishCard key={dish.id} dish={dish} onAdd={onAdd} />
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Features */}
@@ -494,13 +509,13 @@ const categoryConfig = {
   },
 }
 
-function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav }) {
+function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav, cartIconRef }) {
   const config = categoryConfig[category]
   const [featuredIdx, setFeaturedIdx] = useState(0)
 
   return (
     <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={category} />
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage={category} cartIconRef={cartIconRef} />
 
       {/* Category Header */}
       <section className="cat-header">
@@ -569,10 +584,10 @@ function CategoryPage({ category, onAdd, onCartClick, cartCount, onNav }) {
 
 // ─── Contact Page ────────────────────────────────────────────────────────────
 
-function ContactPage({ onCartClick, cartCount, onNav }) {
+function ContactPage({ onCartClick, cartCount, onNav, cartIconRef }) {
   return (
     <div className="page">
-      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="contact" />
+      <Navbar cartCount={cartCount} onCartClick={onCartClick} onNavClick={onNav} activePage="contact" cartIconRef={cartIconRef} />
 
       <div className="contact-split">
 
@@ -719,8 +734,46 @@ function ContactPage({ onCartClick, cartCount, onNav }) {
 function App() {
   const [screen, setScreen] = useState('home')
   const [cartItems, setCartItems] = useState([])
+  const [isCartOpen, setIsCartOpen] = useState(false)
+  
+  const cartIconRef = useRef(null)
+  const prevCartCount = useRef(0)
+
+  // 1. Rehydrate on Page Load
+  useEffect(() => {
+    const savedCart = localStorage.getItem('pepperdem_cart_state')
+    if (savedCart) {
+      try {
+        setCartItems(JSON.parse(savedCart))
+      } catch (e) {
+        console.error('Failed to parse cart', e)
+      }
+    }
+  }, [])
+
+  // 2. Sync on Every Update
+  useEffect(() => {
+    localStorage.setItem('pepperdem_cart_state', JSON.stringify(cartItems))
+  }, [cartItems])
 
   const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0)
+
+  // Add GSAP Bounce Micro-Interaction
+  useEffect(() => {
+    if (cartCount > prevCartCount.current && cartIconRef.current) {
+      gsap.fromTo(cartIconRef.current, 
+        { scale: 1 }, 
+        { 
+            scale: 1.15, 
+            duration: 0.15, 
+            yoyo: true, 
+            repeat: 1, 
+            ease: "power1.inOut" 
+        }
+      )
+    }
+    prevCartCount.current = cartCount
+  }, [cartCount])
 
   const addToCart = (item) => {
     setCartItems((prev) => {
@@ -732,49 +785,84 @@ function App() {
       }
       return [...prev, { ...item, quantity: 1 }]
     })
-    setScreen('cart')
+    setIsCartOpen(true)
   }
 
-  const goHome = () => setScreen('home')
-
-  if (screen === 'cart')
-    return <Cart items={cartItems} setItems={setCartItems} onCheckout={() => setScreen('checkout')} />
-  if (screen === 'checkout')
-    return <Checkout onBack={() => setScreen('cart')} onPlaceOrder={() => setScreen('confirmation')} />
-  if (screen === 'confirmation')
-    return <Confirmation onTrackOrder={() => setScreen('track')} onHome={goHome} />
-  if (screen === 'track')
-    return <TrackOrder onHome={goHome} />
-
-  if (screen === 'contact')
-    return (
-      <ContactPage
-        onCartClick={() => setScreen('cart')}
-        cartCount={cartCount}
-        onNav={(page) => setScreen(page)}
-      />
+  const updateQuantity = (id, change) => {
+    setCartItems((prev) =>
+      prev
+        .map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity + change } : item
+        )
+        .filter((item) => item.quantity > 0)
     )
+  }
 
-  const catPages = ['jollof', 'waakye', 'plain-rice']
-  if (catPages.includes(screen)) {
+  const clearCart = () => setCartItems([])
+
+  const goHome = () => setScreen('home')
+  
+  const openCart = () => setIsCartOpen(true)
+  const closeCart = () => setIsCartOpen(false)
+
+  const renderScreen = () => {
+    if (screen === 'checkout') {
+      return <Checkout onBack={() => setScreen('home')} onPlaceOrder={() => { clearCart(); setScreen('confirmation') }} />
+    }
+    if (screen === 'confirmation') {
+      return <Confirmation onTrackOrder={() => setScreen('track')} onHome={goHome} />
+    }
+    if (screen === 'track') {
+      return <TrackOrder onHome={goHome} />
+    }
+    if (screen === 'contact') {
+      return (
+        <ContactPage
+          onCartClick={openCart}
+          cartCount={cartCount}
+          onNav={(page) => setScreen(page)}
+          cartIconRef={cartIconRef}
+        />
+      )
+    }
+    
+    const catPages = ['jollof', 'waakye', 'plain-rice']
+    if (catPages.includes(screen)) {
+      return (
+        <CategoryPage
+          category={screen}
+          onAdd={addToCart}
+          onCartClick={openCart}
+          cartCount={cartCount}
+          onNav={(page) => setScreen(page)}
+          cartIconRef={cartIconRef}
+        />
+      )
+    }
+
     return (
-      <CategoryPage
-        category={screen}
+      <HomePage
         onAdd={addToCart}
-        onCartClick={() => setScreen('cart')}
+        onCartClick={openCart}
         cartCount={cartCount}
         onNav={(page) => setScreen(page)}
+        cartIconRef={cartIconRef}
       />
     )
   }
 
   return (
-    <HomePage
-      onAdd={addToCart}
-      onCartClick={() => setScreen('cart')}
-      cartCount={cartCount}
-      onNav={(page) => setScreen(page)}
-    />
+    <>
+      {renderScreen()}
+      <Cart 
+        items={cartItems} 
+        updateQuantity={updateQuantity}
+        clearCart={clearCart}
+        onCheckout={() => { closeCart(); setScreen('checkout') }}
+        isOpen={isCartOpen}
+        onClose={closeCart}
+      />
+    </>
   )
 }
 
